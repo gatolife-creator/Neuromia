@@ -7,7 +7,7 @@ export function FlashcardsThumbnail() {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/destination-page"); // Replace with the actual route
+    router.push("/flashcard/1"); // Replace with the actual route
   };
 
   return (
