@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export function Header() {
   return (
@@ -16,9 +16,10 @@ export function Header() {
         </div>
         <div className="flex gap-2">
           <ThemeToggle />
-          <Button variant="default" size="sm">
-            Sign In
-          </Button>
+          <Avatar>
+            <AvatarImage src="#" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
         </div>
       </div>
     </header>
