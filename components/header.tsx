@@ -1,8 +1,17 @@
 import Link from "next/link";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
 
 export function Header() {
   return (
@@ -16,6 +25,17 @@ export function Header() {
         </div>
         <div className="flex gap-2">
           <ThemeToggle />
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button size={"icon"}>
+                <Plus />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>新しい学習リストを作成</DropdownMenuItem>
+              <DropdownMenuItem>新しグループを作成</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Avatar>
             <AvatarImage src="#" />
             <AvatarFallback>CN</AvatarFallback>
