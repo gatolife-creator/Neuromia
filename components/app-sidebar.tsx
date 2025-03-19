@@ -15,10 +15,6 @@ import {
 // Navigation items with icons
 const navigationItems = [
   {
-    title: "",
-    href: "#",
-  },
-  {
     title: "ホーム",
     icon: Home,
     href: "/",
@@ -45,10 +41,10 @@ export function AppSidebar() {
             <SidebarMenu>
               {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild className="py-8">
                     <a href={item.href}>
                       {item.icon && <item.icon className="h-4 w-4" />}
-                      <span>{item.title}</span>
+                      <span className="font-bold">{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
