@@ -15,15 +15,13 @@ export function EditingFlashcard({ ...props }: EditingFlashcardProps) {
         <Textarea
           className="inline-block resize-none"
           placeholder="問題文を入力してください"
-        >
-          {front}
-        </Textarea>
+          defaultValue={front}
+        ></Textarea>
         <Textarea
           className="inline-block resize-none"
           placeholder="答えを入力してください"
-        >
-          {back}
-        </Textarea>
+          defaultValue={back}
+        ></Textarea>
       </div>
     </div>
   );
