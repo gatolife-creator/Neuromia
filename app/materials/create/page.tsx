@@ -11,13 +11,19 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { EditingFlashcardList } from "../../../components/editing-flashcard-list";
+import { CardData } from "@/lib/interfaces";
 
 export default function CreateMaterialPage() {
+  const [cards, setCards] = useState<Array<CardData>>([]);
   const form = useForm();
 
-  const onSubmit = (e) => {};
+  const onSubmit = () => {
+    const { front, back } = form.getValues() as CardData;
+    setCards([...cards, { front, back }]);
+  };
 
   return (
     <div>
@@ -27,7 +33,9 @@ export default function CreateMaterialPage() {
       <div className="my-10 bg-slate-100 border border-black rounded-lg p-4">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormLabel className="text-2xl font-bold">カードを作成する</FormLabel>
+            <FormLabel className="text-2xl font-bold">
+              カードを作成する
+            </FormLabel>
             <FormField
               control={form.control}
               name="front"
@@ -60,10 +68,13 @@ export default function CreateMaterialPage() {
                 </FormItem>
               )}
             ></FormField>
-            <Button type="submit" className="cursor-pointer">追加</Button>
+            <Button type="submit" className="cursor-pointer">
+              追加
+            </Button>
           </form>
         </Form>
       </div>
+      <EditingFlashcardList cards={cards} />
     </div>
   );
 }
