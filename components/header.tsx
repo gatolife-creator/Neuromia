@@ -10,7 +10,6 @@ import {
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 
 export function Header() {
@@ -26,10 +25,8 @@ export function Header() {
         <div className="flex gap-2">
           <ThemeToggle />
           <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Button size={"icon"} className="cursor-pointer">
-                <Plus />
-              </Button>
+            <DropdownMenuTrigger className="cursor-pointer w-[32px] h-[32px] bg-black rounded-sm">
+              <Plus color="white" width={"80%"} height={"80%"} className="mx-auto"/>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>
