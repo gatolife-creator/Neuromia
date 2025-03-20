@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Edit } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface FlashcardsThumbnailProps {
   id: string;
@@ -13,18 +15,25 @@ export function FlashcardsThumbnail({ ...props }: FlashcardsThumbnailProps) {
   const router = useRouter();
   const { id, title } = props;
 
-  const handleClick = () => {
-    router.push(`/material/${id}`); // Replace with the actual route
+  const handleClickForLearning = () => {
+    router.push(`/material/${id}`);
+  };
+
+  const handleClickForEditing = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/material/edit/${id}`);
   };
 
   return (
-    <motion.div
-      className="relative cursor-pointer"
-      onClick={handleClick}
-      whileTap={{ scale: 0.98 }}
-    >
-      <Card className="w-full">
-        <CardContent className="font-bold">{title}</CardContent>
+    <motion.div className="relative cursor-pointer" whileTap={{ scale: 0.995 }}>
+      <Card className="w-full" onClick={handleClickForLearning}>
+        <CardContent className="flex justify-between items-center">
+          <div className="font-bold inline-block">{title}</div>
+          <Button className="cursor-pointer" onClick={handleClickForEditing}>
+            編集する
+            <Edit />
+          </Button>
+        </CardContent>
       </Card>
     </motion.div>
   );
