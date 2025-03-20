@@ -16,11 +16,14 @@ export default function MaterialPage({
     (async () => {
       const { materialId } = await params;
 
-      const { title, serializedCards } = await materialDB.materials.get(
-        materialId
-      );
-      setCards(JSON.parse(serializedCards));
-      setTitle(title);
+      const material = await materialDB.materials.get(materialId);
+      if (material) {
+        const { title, serializedCards } = material;
+        setCards(JSON.parse(serializedCards));
+        setTitle(title);
+      } else {
+        console.error("Material not found");
+      }
     })();
   }, []);
 

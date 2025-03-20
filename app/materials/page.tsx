@@ -15,7 +15,7 @@ export default function MaterialsPage() {
     })();
   }, []);
   return (
-    <div className="container mx-auto p-6 my-5 grid grid-cols-3 gap-x-4 gap-y-10">
+    <div className="container mx-auto p-6 my-5">
       {materials.map((material) => (
         <FlashcardsThumbnail
           key={material.id}
