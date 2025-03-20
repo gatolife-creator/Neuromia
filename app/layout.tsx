@@ -20,7 +20,9 @@ export default function RootLayout({
             <Header />
             <div className="flex flex-1">
               <AppSidebar />
-              <main className="flex-1">{children}</main>
+              <main className="flex-1">
+                <div className="container mx-auto p-6">{children}</div>
+              </main>
             </div>
           </div>
         </SidebarProvider>
