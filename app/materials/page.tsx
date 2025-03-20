@@ -18,6 +18,7 @@ export default function MaterialsPage() {
     <div className="container mx-auto p-6 my-5">
       {materials.map((material) => (
         <FlashcardsThumbnail
+          className="my-5"
           key={material.id}
           id={material.id}
           title={material.title}

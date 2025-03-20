@@ -9,11 +9,12 @@ import { Button } from "./ui/button";
 interface FlashcardsThumbnailProps {
   id: string;
   title: string;
+  className?: string;
 }
 
 export function FlashcardsThumbnail({ ...props }: FlashcardsThumbnailProps) {
   const router = useRouter();
-  const { id, title } = props;
+  const { id, title, className } = props;
 
   const handleClickForLearning = () => {
     router.push(`/material/${id}`);
@@ -25,7 +26,10 @@ export function FlashcardsThumbnail({ ...props }: FlashcardsThumbnailProps) {
   };
 
   return (
-    <motion.div className="relative cursor-pointer" whileTap={{ scale: 0.995 }}>
+    <motion.div
+      className={`relative cursor-pointer ${className}`}
+      whileTap={{ scale: 0.995 }}
+    >
       <Card className="w-full" onClick={handleClickForLearning}>
         <CardContent className="flex justify-between items-center">
           <div className="font-bold inline-block">{title}</div>
