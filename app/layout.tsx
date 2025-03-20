@@ -1,3 +1,5 @@
+"use client";
+
 import type React from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -5,6 +7,7 @@ import { Header } from "@/components/header";
 // import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
+import { motion } from "framer-motion";
 
 export default function RootLayout({
   children,
@@ -20,9 +23,14 @@ export default function RootLayout({
             <Header />
             <div className="flex flex-1">
               <AppSidebar />
-              <main className="flex-1">
+              <motion.main
+                className="flex-1"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ ease: "easeInOut", duration: 0.75 }}
+              >
                 <div className="container mx-auto p-6">{children}</div>
-              </main>
+              </motion.main>
             </div>
           </div>
         </SidebarProvider>
