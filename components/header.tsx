@@ -27,12 +27,14 @@ export function Header() {
           <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Button size={"icon"}>
+              <Button size={"icon"} className="cursor-pointer">
                 <Plus />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>新しい学習リストを作成</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href={"/materials/create"}>新しい学習リストを作成</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem>新しグループを作成</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
