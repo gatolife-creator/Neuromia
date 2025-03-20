@@ -3,18 +3,23 @@
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-export function FlashcardsThumbnail() {
+interface FlashcardsThumbnailProps {
+  id: string;
+  title: string;
+}
+
+export function FlashcardsThumbnail({ ...props }: FlashcardsThumbnailProps) {
   const router = useRouter();
+  const { id, title } = props;
 
   const handleClick = () => {
-    router.push("/flashcard/1"); // Replace with the actual route
+    router.push(`/material/${id}`); // Replace with the actual route
   };
 
   return (
     <motion.div
       className="relative w-80 h-64 cursor-pointer"
       onClick={handleClick}
-      // whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
       {[...Array(3)].map((_, index) => (
@@ -26,8 +31,7 @@ export function FlashcardsThumbnail() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
         >
-          {index === 0 &&
-            "その科学者は、最初の実験結果を再現することができなかった"}
+          {index === 0 && `${title}`}
         </motion.div>
       ))}
     </motion.div>

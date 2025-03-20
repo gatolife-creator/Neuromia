@@ -5,20 +5,17 @@ import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Flashcard } from "./flashcard";
-
-export interface FlashcardItem {
-  id: string | number;
-  front: string;
-  back: string;
-}
+import { CardData } from "@/lib/interfaces";
 
 interface FlashcardDeckProps {
-  cards: FlashcardItem[];
-  title?: string;
+  cards: CardData[];
+  title: string;
 }
 
-export function FlashcardDeck({ cards, title }: FlashcardDeckProps) {
+export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { cards, title } = props;
+  console.log(title);
 
   const handleNext = () => {
     if (currentIndex < cards.length - 1) {
