@@ -20,15 +20,15 @@ export function Flashcard({ front, back, className }: FlashcardProps) {
   return (
     <div
       className={cn(
-        "relative w-full h-64 cursor-pointer perspective-1000",
+        "relative w-full h-96 cursor-pointer perspective-1000",
         className
       )}
       onClick={handleFlip}
     >
       <motion.div
-        className="w-full h-full relative preserve-3d transition-all duration-500"
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.5 }}
+        className="w-full h-full relative preserve-3d transition-all duration-500 transform-3d"
+        animate={{ rotateX: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.01 }}
       >
         {/* Front of card */}
         <div className="absolute w-full h-full backface-hidden bg-card border rounded-xl shadow-md p-6 flex items-center justify-center">
@@ -38,7 +38,7 @@ export function Flashcard({ front, back, className }: FlashcardProps) {
         </div>
 
         {/* Back of card */}
-        <div className="absolute w-full h-full backface-hidden bg-card border rounded-xl shadow-md p-6 flex items-center justify-center [transform:rotateY(180deg)]">
+        <div className="absolute w-full h-full backface-hidden bg-card border rounded-xl shadow-md p-6 flex items-center justify-center [transform:rotateX(180deg)]">
           <div className="text-center">
             <p className="text-xl font-medium">{back}</p>
           </div>

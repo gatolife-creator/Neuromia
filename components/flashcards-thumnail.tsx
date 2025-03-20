@@ -14,7 +14,7 @@ export function FlashcardsThumbnail() {
     <motion.div
       className="relative w-80 h-64 cursor-pointer"
       onClick={handleClick}
-      whileHover={{ scale: 1.02 }}
+      // whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
       {[...Array(3)].map((_, index) => (
