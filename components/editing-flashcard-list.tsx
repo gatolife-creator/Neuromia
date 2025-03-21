@@ -1,3 +1,5 @@
+"use client";
+
 import { EditingFlashcard } from "./editing-flashcard";
 
 interface EditingFlashcardListProps {
@@ -5,10 +7,11 @@ interface EditingFlashcardListProps {
     front: string;
     back: string;
   }>;
+  onClickDelete: (index: number) => void;
 }
 
 export function EditingFlashcardList({ ...props }: EditingFlashcardListProps) {
-  const { cards } = props;
+  const { cards, onClickDelete } = props;
   return (
     <div>
       {cards.map((card, index) => (
@@ -17,6 +20,10 @@ export function EditingFlashcardList({ ...props }: EditingFlashcardListProps) {
           front={card.front}
           back={card.back}
           index={index + 1}
+          onClickDelete={() => {
+            onClickDelete(index);
+          }}
+          onClickEdit={() => {}}
         />
       ))}
     </div>

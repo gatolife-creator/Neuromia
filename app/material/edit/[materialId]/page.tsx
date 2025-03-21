@@ -11,6 +11,11 @@ export default function EditMaterialPage({
   params: Promise<{ materialId: string }>;
 }) {
   const [cards, setCards] = useState<CardData[]>([{ front: "", back: "" }]);
+
+  const onClickDelete = (index: number) => {
+    console.log(index);
+  };
+
   useEffect(() => {
     (async () => {
       const { materialId } = await params;
@@ -26,5 +31,12 @@ export default function EditMaterialPage({
       }
     })();
   }, [params]);
-  return <EditingFlashcardList cards={cards} />;
+  return (
+    <EditingFlashcardList
+      cards={cards}
+      onClickDelete={() => {
+        // onClickDelete(NaN);
+      }}
+    />
+  );
 }
