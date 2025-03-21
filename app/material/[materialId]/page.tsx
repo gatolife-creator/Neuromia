@@ -25,7 +25,7 @@ export default function MaterialPage({
         console.error("Material not found");
       }
     })();
-  }, []);
+  }, [params]);
 
   return (
     <div>
