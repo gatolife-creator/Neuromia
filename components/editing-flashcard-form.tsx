@@ -13,8 +13,8 @@ import { Textarea } from "./ui/textarea";
 import { CardData, MaterialData } from "@/lib/interfaces";
 
 interface EditingFlashcardFormProps {
-  onCardCreationFormSubmit: (values: CardData) => void;
-  onMaterialCreationFormSubmit: (values: MaterialData) => void;
+  onCardCreationFormSubmit?: (values: CardData) => void;
+  onMaterialCreationFormSubmit?: (values: MaterialData) => void;
 }
 
 export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
@@ -27,14 +27,13 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
       <Form {...materialCreationForm}>
         <form
           onSubmit={materialCreationForm.handleSubmit(() => {
-            onMaterialCreationFormSubmit(
-              materialCreationForm.getValues() as MaterialData
-            );
+            if (onMaterialCreationFormSubmit) {
+              onMaterialCreationFormSubmit(
+                materialCreationForm.getValues() as MaterialData
+              );
+            }
           })}
         >
-          <FormLabel className="text-2xl font-bold">
-            新しい教材を作成する
-          </FormLabel>
           <FormField
             control={materialCreationForm.control}
             name="title"
@@ -74,9 +73,11 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
         <Form {...cardCreationForm}>
           <form
             onSubmit={cardCreationForm.handleSubmit(() => {
-              onCardCreationFormSubmit(
-                cardCreationForm.getValues() as CardData
-              );
+              if (onCardCreationFormSubmit) {
+                onCardCreationFormSubmit(
+                  cardCreationForm.getValues() as CardData
+                );
+              }
             })}
           >
             <FormLabel className="text-2xl font-bold">
