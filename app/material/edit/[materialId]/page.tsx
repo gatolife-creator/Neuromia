@@ -13,9 +13,9 @@ export default function EditMaterialPage({
 }) {
   const [cards, setCards] = useState<CardData[]>([{ front: "", back: "" }]);
 
-  const onClickDelete = (index: number) => {
-    console.log(index);
-  };
+  // const onClickDelete = (index: number) => {
+  //   console.log(index);
+  // };
 
   useEffect(() => {
     (async () => {
