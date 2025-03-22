@@ -24,51 +24,59 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
 
   return (
     <>
-      <Form {...materialCreationForm}>
-        <form
-          onSubmit={materialCreationForm.handleSubmit(() => {
-            if (onMaterialCreationFormSubmit) {
-              onMaterialCreationFormSubmit(
-                materialCreationForm.getValues() as MaterialData
-              );
-            }
-          })}
-        >
-          <FormField
-            control={materialCreationForm.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    placeholder="タイトルを入力してください"
-                    {...field}
-                  ></Input>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          ></FormField>
-          <FormField
-            control={materialCreationForm.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Textarea
-                    placeholder="説明文を入力してください"
-                    {...field}
-                  ></Textarea>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          ></FormField>
-          <Button type="submit" className="cursor-pointer">
-            作成
-          </Button>
-        </form>
-      </Form>
+      <div className="bg-[#FAFAFA] p-4">
+        <Form {...materialCreationForm}>
+          <form
+            onSubmit={materialCreationForm.handleSubmit(() => {
+              if (onMaterialCreationFormSubmit) {
+                onMaterialCreationFormSubmit(
+                  materialCreationForm.getValues() as MaterialData
+                );
+              }
+            })}
+            className="space-y-4 mx-auto"
+          >
+            <div className="flex justify-between items-center p-4">
+              <div className="text-2xl font-bold">新しく教材を作成する</div>
+              <Button type="submit" className="cursor-pointer">
+                作成
+              </Button>
+            </div>
+            <FormField
+              control={materialCreationForm.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="タイトルを入力してください"
+                      {...field}
+                      className="bg-white"
+                    ></Input>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            ></FormField>
+            <FormField
+              control={materialCreationForm.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Textarea
+                      placeholder="説明文を入力してください"
+                      {...field}
+                      className="bg-white"
+                    ></Textarea>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            ></FormField>
+          </form>
+        </Form>
+      </div>
       <div className="my-10 bg-slate-100 border border-black rounded-lg p-4">
         <Form {...cardCreationForm}>
           <form

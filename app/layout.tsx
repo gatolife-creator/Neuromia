@@ -29,7 +29,8 @@ export default function RootLayout({
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ ease: "easeInOut", duration: 0.75 }}
               >
-                <div className="container mx-auto p-6">{children}</div>
+                {children}
+                {/* <div className="container mx-auto p-6">{children}</div> */}
               </motion.main>
             </div>
           </div>
