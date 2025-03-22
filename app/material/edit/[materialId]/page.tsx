@@ -20,8 +20,7 @@ export default function EditMaterialPage({
   const router = useRouter();
 
   const onClickDelete = (index: number) => {
-    const newCards = cards.filter((_, i) => i !== index);
-    setCards(newCards);
+    setCards((prevCards) => prevCards.filter((_, i) => i !== index));
   };
 
   const onMaterialCreationFormSubmit = async (values: MaterialData) => {
@@ -63,23 +62,15 @@ export default function EditMaterialPage({
   };
 
   const onChangeFrontInput = (index: number, front: string) => {
-    const newCards = cards.map((card, i) => {
-      if (i === index) {
-        card.front = front;
-      }
-      return card;
-    });
-    setCards(newCards);
+    setCards((prevCards) =>
+      prevCards.map((card, i) => (i === index ? { ...card, front } : card))
+    );
   };
 
   const onChangeBackInput = (index: number, back: string) => {
-    const newCards = cards.map((card, i) => {
-      if (i === index) {
-        card.back = back;
-      }
-      return card;
-    });
-    setCards(newCards);
+    setCards((prevCards) =>
+      prevCards.map((card, i) => (i === index ? { ...card, back } : card))
+    );
   };
 
   const onClickCardAddition = () => {
