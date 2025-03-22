@@ -36,7 +36,6 @@ export function AppSidebar() {
     <Sidebar className="border-r">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>{/** dummy text **/}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => (
