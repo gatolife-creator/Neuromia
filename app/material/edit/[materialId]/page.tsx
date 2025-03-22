@@ -20,14 +20,8 @@ export default function EditMaterialPage({
   const router = useRouter();
 
   const onClickDelete = (index: number) => {
-    // console.log(materialId);
     const newCards = cards.filter((_, i) => i !== index);
     setCards(newCards);
-  };
-
-  const onCardCreationFormSubmit = (values: CardData) => {
-    const { front, back } = values;
-    setCards([...cards, { front, back }]);
   };
 
   const onMaterialCreationFormSubmit = async (values: MaterialData) => {
@@ -88,6 +82,10 @@ export default function EditMaterialPage({
     setCards(newCards);
   };
 
+  const onClickCardAddition = () => {
+    setCards([...cards, { front: "", back: "" }]);
+  };
+
   useEffect(() => {
     (async () => {
       const { materialId } = await params;
@@ -111,7 +109,6 @@ export default function EditMaterialPage({
         type="edit"
         title={material.title}
         description={material.description}
-        onCardCreationFormSubmit={onCardCreationFormSubmit}
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
         onClickMaterialDelete={onClickMaterialDelete}
       />
@@ -120,6 +117,7 @@ export default function EditMaterialPage({
         onClickDelete={onClickDelete}
         onChangeFrontInput={onChangeFrontInput}
         onChangeBackInput={onChangeBackInput}
+        onClickCardAddition={onClickCardAddition}
       />
     </>
   );

@@ -2,7 +2,7 @@
 
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Edit, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { Textarea } from "./ui/textarea";
 
 interface EditingFlashcardProps {

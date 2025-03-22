@@ -14,11 +14,6 @@ export default function CreateMaterialPage() {
   const [cards, setCards] = useState<CardData[]>([]);
   const router = useRouter();
 
-  const onCardCreationFormSubmit = (values: CardData) => {
-    const { front, back } = values;
-    setCards([...cards, { front, back }]);
-  };
-
   const onClickDelete = (index: number) => {
     setCards(cards.filter((_, i) => i !== index));
     console.log(cards);
@@ -75,11 +70,14 @@ export default function CreateMaterialPage() {
     setCards(newCards);
   };
 
+  const onClickCardAddition = () => {
+    setCards([...cards, { front: "", back: "" }]);
+  };
+
   return (
     <div>
       <EditingFlashcardForm
         type="create"
-        onCardCreationFormSubmit={onCardCreationFormSubmit}
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
         onClickMaterialDelete={onClickMaterialDelete}
       />
@@ -89,6 +87,7 @@ export default function CreateMaterialPage() {
         onClickDelete={onClickDelete}
         onChangeFrontInput={onChangeFrontInput}
         onChangeBackInput={onChangeBackInput}
+        onClickCardAddition={onClickCardAddition}
       />
     </div>
   );
