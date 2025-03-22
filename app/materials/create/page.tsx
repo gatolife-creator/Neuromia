@@ -55,6 +55,26 @@ export default function CreateMaterialPage() {
     router.push("/materials");
   };
 
+  const onChangeFrontInput = (index: number, front: string) => {
+    const newCards = cards.map((card, i) => {
+      if (i === index) {
+        card.front = front;
+      }
+      return card;
+    });
+    setCards(newCards);
+  };
+
+  const onChangeBackInput = (index: number, back: string) => {
+    const newCards = cards.map((card, i) => {
+      if (i === index) {
+        card.back = back;
+      }
+      return card;
+    });
+    setCards(newCards);
+  };
+
   return (
     <div>
       <EditingFlashcardForm
@@ -64,7 +84,12 @@ export default function CreateMaterialPage() {
         onClickMaterialDelete={onClickMaterialDelete}
       />
 
-      <EditingFlashcardList cards={cards} onClickDelete={onClickDelete} />
+      <EditingFlashcardList
+        cards={cards}
+        onClickDelete={onClickDelete}
+        onChangeFrontInput={onChangeFrontInput}
+        onChangeBackInput={onChangeBackInput}
+      />
     </div>
   );
 }

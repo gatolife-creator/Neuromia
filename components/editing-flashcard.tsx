@@ -11,37 +11,36 @@ interface EditingFlashcardProps {
   index: number;
   onClickDelete: (index: number) => void;
   onClickEdit: (index: number) => void;
+  onChangeFrontInput: (front: string) => void;
+  onChangeBackInput: (back: string) => void;
 }
 
 export function EditingFlashcard({ ...props }: EditingFlashcardProps) {
   const { front, back, index, onClickDelete } = props;
+
+  const onChangeFrontInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    props.onChangeFrontInput(e.target.value);
+  };
+
+  const onChangeBackInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    props.onChangeBackInput(e.target.value);
+  };
 
   return (
     <Card className="w-full my-5">
       <CardHeader>
         <CardTitle className="flex justify-between">
           <div>{index}</div>
-          <div>
-            <Button
-              className="cursor-pointer mx-1"
-              size="icon"
-              onClick={() => {
-                props.onClickEdit(index - 1);
-              }}
-            >
-              <Edit />
-            </Button>
-            <Button
-              className="cursor-pointer mx-1"
-              size="icon"
-              variant="destructive"
-              onClick={() => {
-                onClickDelete(index - 1);
-              }}
-            >
-              <Trash2 />
-            </Button>
-          </div>
+          <Button
+            className="cursor-pointer mx-1"
+            size="icon"
+            variant="destructive"
+            onClick={() => {
+              onClickDelete(index - 1);
+            }}
+          >
+            <Trash2 />
+          </Button>
         </CardTitle>
       </CardHeader>
 
@@ -49,10 +48,13 @@ export function EditingFlashcard({ ...props }: EditingFlashcardProps) {
         <Textarea
           className="w-full resize-none"
           defaultValue={front}
-        ></Textarea>
-        <Textarea className="w-full resize-none" defaultValue={back}></Textarea>
-        {/* <div className="w-full">{front}</div>
-        <div className="w-full">{back}</div> */}
+          onChange={onChangeFrontInput}
+        />
+        <Textarea
+          className="w-full resize-none"
+          defaultValue={back}
+          onChange={onChangeBackInput}
+        />
       </CardContent>
     </Card>
   );
