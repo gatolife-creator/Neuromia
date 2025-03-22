@@ -39,7 +39,6 @@ export function EditingFlashcardList({ ...props }: EditingFlashcardListProps) {
           onChangeBackInput={(back: string) => {
             onChangeBackInput(index, back);
           }}
-          onClickEdit={() => {}}
         />
       ))}
       <EditingFlashcardAdditionButton

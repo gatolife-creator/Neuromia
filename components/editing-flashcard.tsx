@@ -10,7 +10,6 @@ interface EditingFlashcardProps {
   back: string;
   index: number;
   onClickDelete: (index: number) => void;
-  onClickEdit: (index: number) => void;
   onChangeFrontInput: (front: string) => void;
   onChangeBackInput: (back: string) => void;
 }
