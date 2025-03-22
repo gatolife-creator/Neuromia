@@ -5,6 +5,9 @@ import { materialDB } from "@/lib/db";
 import { CardData, MaterialData } from "@/lib/interfaces";
 import React, { useEffect, useState } from "react";
 import { EditingFlashcardForm } from "../../../../components/editing-flashcard-form";
+import { toast } from "sonner";
+import { CheckCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function EditMaterialPage({
   params,
@@ -14,6 +17,7 @@ export default function EditMaterialPage({
   const [materialId, setMaterialId] = useState("");
   const [material, setMaterial] = useState({ title: "", description: "" });
   const [cards, setCards] = useState<CardData[]>([]);
+  const router = useRouter();
 
   const onClickDelete = (index: number) => {
     // console.log(materialId);
@@ -36,6 +40,21 @@ export default function EditMaterialPage({
         description,
         serializedCards: JSON.stringify(cards),
       });
+
+    toast(
+      <div className="flex items-center">
+        <CheckCircle color="green" className="mr-2" />
+        <div>教材が更新されました</div>
+      </div>,
+      {
+        action: {
+          label: "取り消す",
+          onClick: () => console.log("取り消す"),
+        },
+      }
+    );
+
+    router.push("/materials");
   };
 
   useEffect(() => {

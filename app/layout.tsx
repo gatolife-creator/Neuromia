@@ -8,6 +8,7 @@ import { Header } from "@/components/header";
 
 import "./globals.css";
 import { motion } from "framer-motion";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -30,6 +31,7 @@ export default function RootLayout({
                 transition={{ ease: "easeInOut", duration: 0.75 }}
               >
                 {children}
+                <Toaster />
                 {/* <div className="container mx-auto p-6">{children}</div> */}
               </motion.main>
             </div>
