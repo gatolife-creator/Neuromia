@@ -19,8 +19,8 @@ interface EditingFlashcardFormProps {
   type: "create" | "edit";
   title?: string;
   description?: string;
-  onCardCreationFormSubmit?: (values: CardData) => void;
-  onMaterialCreationFormSubmit?: (values: MaterialData) => void;
+  onCardCreationFormSubmit: (values: CardData) => void;
+  onMaterialCreationFormSubmit: (values: MaterialData) => void;
 }
 
 export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {

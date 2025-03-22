@@ -2,7 +2,7 @@
 
 import { EditingFlashcardList } from "@/components/editing-flashcard-list";
 import { materialDB } from "@/lib/db";
-import { CardData } from "@/lib/interfaces";
+import { CardData, MaterialData } from "@/lib/interfaces";
 import React, { useEffect, useState } from "react";
 import { EditingFlashcardForm } from "../../../../components/editing-flashcard-form";
 
@@ -18,11 +18,24 @@ export default function EditMaterialPage({
   const onClickDelete = (index: number) => {
     // console.log(materialId);
     const newCards = cards.filter((_, i) => i !== index);
+    setCards(newCards);
+  };
+
+  const onCardCreationFormSubmit = (values: CardData) => {
+    const { front, back } = values;
+    setCards([...cards, { front, back }]);
+  };
+
+  const onMaterialCreationFormSubmit = async (values: MaterialData) => {
+    const { title, description } = values;
     materialDB.materials
       .where("id")
       .equals(materialId)
-      .modify({ serializedCards: JSON.stringify(newCards) });
-    setCards(newCards);
+      .modify({
+        title,
+        description,
+        serializedCards: JSON.stringify(cards),
+      });
   };
 
   useEffect(() => {
@@ -41,13 +54,15 @@ export default function EditMaterialPage({
         }
       }
     })();
-  }, [params, material, cards]);
+  }, [params]);
   return (
     <>
       <EditingFlashcardForm
         type="edit"
         title={material.title}
         description={material.description}
+        onCardCreationFormSubmit={onCardCreationFormSubmit}
+        onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
       />
       <EditingFlashcardList cards={cards} onClickDelete={onClickDelete} />
     </>
