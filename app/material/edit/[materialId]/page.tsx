@@ -11,12 +11,19 @@ export default function EditMaterialPage({
 }: {
   params: Promise<{ materialId: string }>;
 }) {
+  const [materialId, setMaterialId] = useState("");
   const [material, setMaterial] = useState({ title: "", description: "" });
-  const [cards, setCards] = useState<CardData[]>([{ front: "", back: "" }]);
+  const [cards, setCards] = useState<CardData[]>([]);
 
-  // const onClickDelete = (index: number) => {
-  //   console.log(index);
-  // };
+  const onClickDelete = (index: number) => {
+    // console.log(materialId);
+    const newCards = cards.filter((_, i) => i !== index);
+    materialDB.materials
+      .where("id")
+      .equals(materialId)
+      .modify({ serializedCards: JSON.stringify(newCards) });
+    setCards(newCards);
+  };
 
   useEffect(() => {
     (async () => {
@@ -24,6 +31,7 @@ export default function EditMaterialPage({
 
       if (materialId) {
         const material = await materialDB.materials.get({ id: materialId });
+        setMaterialId(materialId);
         if (material) {
           const { title, description, serializedCards } = material;
           setMaterial({ title, description });
@@ -41,12 +49,7 @@ export default function EditMaterialPage({
         title={material.title}
         description={material.description}
       />
-      <EditingFlashcardList
-        cards={cards}
-        onClickDelete={() => {
-          // onClickDelete(NaN);
-        }}
-      />
+      <EditingFlashcardList cards={cards} onClickDelete={onClickDelete} />
     </>
   );
 }
