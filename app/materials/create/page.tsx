@@ -15,7 +15,7 @@ export default function CreateMaterialPage() {
   const router = useRouter();
 
   const onClickDelete = (index: number) => {
-    setCards(cards.filter((_, i) => i !== index));
+    setCards((prevCards) => prevCards.filter((_, i) => i !== index));
     console.log(cards);
   };
 
@@ -51,23 +51,15 @@ export default function CreateMaterialPage() {
   };
 
   const onChangeFrontInput = (index: number, front: string) => {
-    const newCards = cards.map((card, i) => {
-      if (i === index) {
-        card.front = front;
-      }
-      return card;
-    });
-    setCards(newCards);
+    setCards((prevCards) =>
+      prevCards.map((card, i) => (i === index ? { ...card, front } : card))
+    );
   };
 
   const onChangeBackInput = (index: number, back: string) => {
-    const newCards = cards.map((card, i) => {
-      if (i === index) {
-        card.back = back;
-      }
-      return card;
-    });
-    setCards(newCards);
+    setCards((prevCards) =>
+      prevCards.map((card, i) => (i === index ? { ...card, back } : card))
+    );
   };
 
   const onClickCardAddition = () => {
