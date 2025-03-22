@@ -3,6 +3,7 @@
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Edit, Trash2 } from "lucide-react";
+import { Textarea } from "./ui/textarea";
 
 interface EditingFlashcardProps {
   front: string;
@@ -45,8 +46,13 @@ export function EditingFlashcard({ ...props }: EditingFlashcardProps) {
       </CardHeader>
 
       <CardContent className="grid grid-cols-2 gap-4">
-        <div className="w-full">{front}</div>
-        <div className="w-full">{back}</div>
+        <Textarea
+          className="w-full resize-none"
+          defaultValue={front}
+        ></Textarea>
+        <Textarea className="w-full resize-none" defaultValue={back}></Textarea>
+        {/* <div className="w-full">{front}</div>
+        <div className="w-full">{back}</div> */}
       </CardContent>
     </Card>
   );

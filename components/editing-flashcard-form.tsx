@@ -83,13 +83,6 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                 <Button type="submit" className="cursor-pointer mx-1">
                   {props.type === "create" ? "作成" : "更新"}
                 </Button>
-                {/* <Button
-                  type="button"
-                  variant="destructive"
-                  className="cursor-pointer mx-1"
-                >
-                  {props.type === "create" ? "取り消す" : "削除"}
-                </Button> */}
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button
@@ -150,7 +143,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                     <Textarea
                       placeholder="説明文を入力してください"
                       {...field}
-                      className="bg-white"
+                      className="bg-white resize-none"
                       onChange={onChangeDescription}
                     />
                   </FormControl>
