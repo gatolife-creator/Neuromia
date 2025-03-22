@@ -51,12 +51,17 @@ export default function CreateMaterialPage() {
     router.push("/materials");
   };
 
+  const onClickMaterialDelete = () => {
+    router.push("/materials");
+  };
+
   return (
     <div>
       <EditingFlashcardForm
         type="create"
         onCardCreationFormSubmit={onCardCreationFormSubmit}
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
+        onClickMaterialDelete={onClickMaterialDelete}
       />
 
       <EditingFlashcardList cards={cards} onClickDelete={onClickDelete} />

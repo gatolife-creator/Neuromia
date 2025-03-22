@@ -57,6 +57,17 @@ export default function EditMaterialPage({
     router.push("/materials");
   };
 
+  const onClickMaterialDelete = async () => {
+    await materialDB.materials.delete(materialId);
+    toast(
+      <div className="flex items-center">
+        <CheckCircle color="green" className="mr-2" />
+        <div>教材が削除されました</div>
+      </div>
+    );
+    router.push("/materials");
+  };
+
   useEffect(() => {
     (async () => {
       const { materialId } = await params;
@@ -82,6 +93,7 @@ export default function EditMaterialPage({
         description={material.description}
         onCardCreationFormSubmit={onCardCreationFormSubmit}
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
+        onClickMaterialDelete={onClickMaterialDelete}
       />
       <EditingFlashcardList cards={cards} onClickDelete={onClickDelete} />
     </>

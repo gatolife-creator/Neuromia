@@ -14,6 +14,17 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { CardData, MaterialData } from "@/lib/interfaces";
 import { useEffect } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
 
 interface EditingFlashcardFormProps {
   type: "create" | "edit";
@@ -21,10 +32,15 @@ interface EditingFlashcardFormProps {
   description?: string;
   onCardCreationFormSubmit: (values: CardData) => void;
   onMaterialCreationFormSubmit: (values: MaterialData) => void;
+  onClickMaterialDelete: () => void;
 }
 
 export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
-  const { onCardCreationFormSubmit, onMaterialCreationFormSubmit } = props;
+  const {
+    onCardCreationFormSubmit,
+    onMaterialCreationFormSubmit,
+    onClickMaterialDelete,
+  } = props;
   const materialCreationForm = useForm({
     defaultValues: { title: props.title, description: props.description },
   });
@@ -63,9 +79,50 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
               <div className="text-2xl font-bold">
                 {props.type === "create" ? "新規作成" : "編集"}
               </div>
-              <Button type="submit" className="cursor-pointer">
-                {props.type === "create" ? "作成" : "更新"}
-              </Button>
+              <div>
+                <Button type="submit" className="cursor-pointer mx-1">
+                  {props.type === "create" ? "作成" : "更新"}
+                </Button>
+                {/* <Button
+                  type="button"
+                  variant="destructive"
+                  className="cursor-pointer mx-1"
+                >
+                  {props.type === "create" ? "取り消す" : "削除"}
+                </Button> */}
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      variant="destructive"
+                      className="cursor-pointer mx-1"
+                    >
+                      {props.type === "create" ? "取り消す" : "削除"}
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        本当に{props.type === "create" ? "取り消し" : "削除"}
+                        しますか？
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        この操作は取り消すことができません。
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel className="cursor-pointer">
+                        キャンセル
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                        className="cursor-pointer bg-destructive hover:bg-destructive hover:opacity-80"
+                        onClick={onClickMaterialDelete}
+                      >
+                        {props.type === "create" ? "取り消す" : "削除"}
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
             </div>
             <FormField
               control={materialCreationForm.control}
