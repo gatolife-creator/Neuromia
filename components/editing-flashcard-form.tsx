@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 import { Form } from "./ui/form";
 import { Button } from "./ui/button";
@@ -11,16 +13,37 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { CardData, MaterialData } from "@/lib/interfaces";
+import { useEffect } from "react";
 
 interface EditingFlashcardFormProps {
+  type: "create" | "edit";
+  title?: string;
+  description?: string;
   onCardCreationFormSubmit?: (values: CardData) => void;
   onMaterialCreationFormSubmit?: (values: MaterialData) => void;
 }
 
 export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
   const { onCardCreationFormSubmit, onMaterialCreationFormSubmit } = props;
-  const materialCreationForm = useForm();
-  const cardCreationForm = useForm();
+  const materialCreationForm = useForm({
+    defaultValues: { title: props.title, description: props.description },
+  });
+  const cardCreationForm = useForm({ defaultValues: { front: "", back: "" } });
+
+  useEffect(() => {
+    materialCreationForm.setValue("title", props.title);
+    materialCreationForm.setValue("description", props.description);
+  }, [props.title, props.description]);
+
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value;
+    materialCreationForm.setValue("title", title);
+  };
+
+  const onChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const description = e.target.value;
+    materialCreationForm.setValue("description", description);
+  };
 
   return (
     <>
@@ -37,9 +60,11 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
             className="space-y-4 mx-auto"
           >
             <div className="flex justify-between items-center p-4">
-              <div className="text-2xl font-bold">新しく教材を作成する</div>
+              <div className="text-2xl font-bold">
+                {props.type === "create" ? "新規作成" : "編集"}
+              </div>
               <Button type="submit" className="cursor-pointer">
-                作成
+                {props.type === "create" ? "作成" : "更新"}
               </Button>
             </div>
             <FormField
@@ -52,12 +77,13 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                       placeholder="タイトルを入力してください"
                       {...field}
                       className="bg-white"
-                    ></Input>
+                      onChange={onChangeTitle}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-            ></FormField>
+            />
             <FormField
               control={materialCreationForm.control}
               name="description"
@@ -68,7 +94,8 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                       placeholder="説明文を入力してください"
                       {...field}
                       className="bg-white"
-                    ></Textarea>
+                      onChange={onChangeDescription}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -101,7 +128,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                       placeholder="問題文を入力してください"
                       className="bg-white"
                       {...field}
-                    ></Textarea>
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -117,7 +144,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                       placeholder="答えを入力してください"
                       className="bg-white"
                       {...field}
-                    ></Textarea>
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

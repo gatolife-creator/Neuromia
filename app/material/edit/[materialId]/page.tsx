@@ -11,6 +11,7 @@ export default function EditMaterialPage({
 }: {
   params: Promise<{ materialId: string }>;
 }) {
+  const [material, setMaterial] = useState({ title: "", description: "" });
   const [cards, setCards] = useState<CardData[]>([{ front: "", back: "" }]);
 
   // const onClickDelete = (index: number) => {
@@ -24,17 +25,22 @@ export default function EditMaterialPage({
       if (materialId) {
         const material = await materialDB.materials.get({ id: materialId });
         if (material) {
-          const { serializedCards } = material;
+          const { title, description, serializedCards } = material;
+          setMaterial({ title, description });
           setCards(JSON.parse(serializedCards));
         } else {
           console.error("Material not found");
         }
       }
     })();
-  }, [params]);
+  }, [params, material, cards]);
   return (
     <>
-      <EditingFlashcardForm />
+      <EditingFlashcardForm
+        type="edit"
+        title={material.title}
+        description={material.description}
+      />
       <EditingFlashcardList
         cards={cards}
         onClickDelete={() => {

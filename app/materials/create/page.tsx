@@ -35,6 +35,7 @@ export default function CreateMaterialPage() {
   return (
     <div>
       <EditingFlashcardForm
+        type="create"
         onCardCreationFormSubmit={onCardCreationFormSubmit}
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
       />
