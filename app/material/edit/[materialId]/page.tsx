@@ -4,6 +4,7 @@ import { EditingFlashcardList } from "@/components/editing-flashcard-list";
 import { materialDB } from "@/lib/db";
 import { CardData } from "@/lib/interfaces";
 import React, { useEffect, useState } from "react";
+import { EditingFlashcardForm } from "../../../../components/editing-flashcard-form";
 
 export default function EditMaterialPage({
   params,
@@ -32,11 +33,14 @@ export default function EditMaterialPage({
     })();
   }, [params]);
   return (
-    <EditingFlashcardList
-      cards={cards}
-      onClickDelete={() => {
-        // onClickDelete(NaN);
-      }}
-    />
+    <>
+      <EditingFlashcardForm />
+      <EditingFlashcardList
+        cards={cards}
+        onClickDelete={() => {
+          // onClickDelete(NaN);
+        }}
+      />
+    </>
   );
 }
