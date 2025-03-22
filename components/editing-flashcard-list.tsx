@@ -23,7 +23,7 @@ export function EditingFlashcardList({ ...props }: EditingFlashcardListProps) {
     onClickCardAddition,
   } = props;
   return (
-    <div>
+    <div className="p-4">
       {cards.map((card, index) => (
         <EditingFlashcard
           key={index}

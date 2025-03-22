@@ -47,11 +47,13 @@ export function EditingFlashcard({ ...props }: EditingFlashcardProps) {
       <CardContent className="grid grid-cols-2 gap-4">
         <Textarea
           className="w-full resize-none"
+          placeholder="問題文を入力してください"
           defaultValue={front}
           onChange={onChangeFrontInput}
         />
         <Textarea
           className="w-full resize-none"
+          placeholder="答えを入力してください"
           defaultValue={back}
           onChange={onChangeBackInput}
         />
