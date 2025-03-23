@@ -11,7 +11,9 @@ export default function MaterialPage({
   params: Promise<{ materialId: string }>;
 }) {
   const [title, setTitle] = useState("");
-  const [cards, setCards] = useState<CardData[]>([{ front: "", back: "" }]);
+  const [cards, setCards] = useState<CardData[]>([
+    { id: "", front: "", back: "" },
+  ]);
   useEffect(() => {
     (async () => {
       const { materialId } = await params;
