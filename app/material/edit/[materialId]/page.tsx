@@ -3,7 +3,7 @@
 import { EditingFlashcardList } from "@/components/editing-flashcard-list";
 import { materialDB } from "@/lib/db";
 import { CardData, MaterialData } from "@/lib/interfaces";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { EditingFlashcardForm } from "../../../../components/editing-flashcard-form";
 import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
@@ -19,6 +19,8 @@ export default function EditMaterialPage({
   const [material, setMaterial] = useState({ title: "", description: "" });
   const [cards, setCards] = useState<CardData[]>([]);
   const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+  const prevCardsLength = useRef(cards.length);
 
   const onClickDelete = (index: number) => {
     setCards((prevCards) => prevCards.filter((_, i) => i !== index));
@@ -106,6 +108,14 @@ export default function EditMaterialPage({
       }
     })();
   }, [params]);
+
+  useEffect(() => {
+    if (ref.current && cards.length > prevCardsLength.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+    prevCardsLength.current = cards.length;
+  }, [cards]);
+
   return (
     <>
       <EditingFlashcardForm
@@ -122,6 +132,7 @@ export default function EditMaterialPage({
         onChangeBackInput={onChangeBackInput}
         onClickCardAddition={onClickCardAddition}
       />
+      <div ref={ref}></div>
     </>
   );
 }
