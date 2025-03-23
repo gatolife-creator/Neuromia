@@ -43,7 +43,7 @@ export function EditingFlashcard({ ...props }: EditingFlashcardProps) {
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="grid grid-cols-2 gap-4">
+      <CardContent className="grid lg:grid-cols-2 gap-4">
         <Textarea
           className="w-full resize-none"
           placeholder="問題文を入力してください"
