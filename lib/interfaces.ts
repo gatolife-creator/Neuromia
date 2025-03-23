@@ -1,4 +1,5 @@
 export interface CardData {
+  id: string;
   front: string;
   back: string;
 }

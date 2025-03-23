@@ -8,6 +8,7 @@ import { EditingFlashcardForm } from "../../../../components/editing-flashcard-f
 import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
 
 export default function EditMaterialPage({
   params,
@@ -74,7 +75,7 @@ export default function EditMaterialPage({
   };
 
   const onClickCardAddition = () => {
-    setCards([...cards, { front: "", back: "" }]);
+    setCards([...cards, { id: uuidv4(), front: "", back: "" }]);
   };
 
   useEffect(() => {

@@ -63,7 +63,7 @@ export default function CreateMaterialPage() {
   };
 
   const onClickCardAddition = () => {
-    setCards([...cards, { front: "", back: "" }]);
+    setCards([...cards, { id: uuidv4(), front: "", back: "" }]);
   };
 
   return (
