@@ -46,11 +46,11 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
       <div className="w-full max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm text-muted-foreground">
-            Card {currentIndex + 1} of {cards.length}
+            {currentIndex + 1} / {cards.length}
           </span>
           <Button variant="outline" size="sm" onClick={handleReset}>
             <RotateCcw className="h-4 w-4 mr-2" />
-            Reset
+            リセット
           </Button>
         </div>
 
@@ -69,13 +69,13 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
             disabled={currentIndex === 0}
           >
             <ChevronLeft className="h-4 w-4 mr-2" />
-            Previous
+            戻る
           </Button>
           <Button
             onClick={handleNext}
             disabled={currentIndex === cards.length - 1}
           >
-            Next
+            次へ
             <ChevronRight className="h-4 w-4 ml-2" />
           </Button>
         </div>
