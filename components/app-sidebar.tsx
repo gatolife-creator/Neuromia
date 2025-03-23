@@ -19,7 +19,7 @@ const navigationItems = [
     href: "/",
   },
   {
-    title: "教材",
+    title: "教材一覧",
     icon: Book,
     href: "/materials",
   },
