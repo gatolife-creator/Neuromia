@@ -20,7 +20,7 @@ export function Flashcard({ front, back, className }: FlashcardProps) {
   return (
     <div
       className={cn(
-        "relative w-full h-96 cursor-pointer perspective-1000",
+        "relative w-full lg:h-96 h-64 cursor-pointer perspective-1000",
         className
       )}
       onClick={handleFlip}

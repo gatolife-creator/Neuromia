@@ -43,7 +43,7 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
         </h2>
       )}
 
-      <div className="w-full max-w-2xl mx-auto">
+      <div className="w-full max-w-2xl mx-auto p-4">
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm text-muted-foreground">
             {currentIndex + 1} / {cards.length}
