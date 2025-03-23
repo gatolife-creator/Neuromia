@@ -7,7 +7,7 @@ import { materialDB } from "@/lib/db";
 import { v4 as uuidv4 } from "uuid";
 import { EditingFlashcardForm } from "../../../components/editing-flashcard-form";
 import { toast } from "sonner";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, XOctagon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function CreateMaterialPage() {
@@ -23,11 +23,38 @@ export default function CreateMaterialPage() {
     const { title, description } = values;
     const id = uuidv4();
 
+    if (!title) {
+      toast(
+        <div className="flex items-center">
+          <XOctagon color="red" className="mr-2" />
+          <div>タイトルを入力してください</div>
+        </div>
+      );
+      return;
+    }
+
+    const formattedCards = cards
+      .map((card) => ({
+        front: card.front.trimEnd(),
+        back: card.back.trimEnd(),
+      }))
+      .filter((card) => card.front && card.back);
+
+    if (!formattedCards.length) {
+      toast(
+        <div className="flex items-center">
+          <XOctagon color="red" className="mr-2" />
+          <div>少なくとも1つのカードを作成してください</div>
+        </div>
+      );
+      return;
+    }
+
     materialDB.materials.add({
       id,
       title,
       description,
-      serializedCards: JSON.stringify(cards),
+      serializedCards: JSON.stringify(formattedCards),
     });
 
     toast(

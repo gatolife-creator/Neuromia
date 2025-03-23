@@ -26,13 +26,24 @@ export default function EditMaterialPage({
 
   const onMaterialCreationFormSubmit = async (values: MaterialData) => {
     const { title, description } = values;
+    if (!title) {
+      toast(
+        <div className="flex items-center">
+          <CheckCircle color="red" className="mr-2" />
+          <div>タイトルを入力してください</div>
+        </div>
+      );
+    }
+
     materialDB.materials
       .where("id")
       .equals(materialId)
       .modify({
         title,
         description,
-        serializedCards: JSON.stringify(cards),
+        serializedCards: JSON.stringify(
+          cards.filter((card) => card.front.trimEnd() && card.back.trimEnd())
+        ),
       });
 
     toast(
