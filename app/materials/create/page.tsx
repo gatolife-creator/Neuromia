@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { EditingFlashcardList } from "../../../components/editing-flashcard-list";
 import { CardData, MaterialMetaData } from "@/lib/interfaces";
 import { materialDB } from "@/lib/db";
@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 export default function CreateMaterialPage() {
   const [cards, setCards] = useState<CardData[]>([]);
   const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+  const prevCardsLength = useRef(cards.length);
 
   const onClickDelete = (index: number) => {
     setCards((prevCards) => prevCards.filter((_, i) => i !== index));
@@ -93,6 +95,13 @@ export default function CreateMaterialPage() {
     setCards([...cards, { id: uuidv4(), front: "", back: "" }]);
   };
 
+  useEffect(() => {
+    if (ref.current && cards.length > prevCardsLength.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+    prevCardsLength.current = cards.length;
+  }, [cards]);
+
   return (
     <div>
       <EditingFlashcardForm
@@ -108,6 +117,7 @@ export default function CreateMaterialPage() {
         onChangeBackInput={onChangeBackInput}
         onClickCardAddition={onClickCardAddition}
       />
+      <div ref={ref}></div>
     </div>
   );
 }
