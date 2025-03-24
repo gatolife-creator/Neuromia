@@ -32,7 +32,7 @@ export function Flashcard({
   return (
     <div
       className={cn(
-        `relative w-full lg:h-96 h-64 perspective-distant ${
+        `relative w-full lg:h-96 h-64 perspective-distant select-none ${
           isStudying ? "cursor-pointer" : ""
         }`,
         className
