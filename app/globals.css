@@ -44,7 +44,8 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 

@@ -69,8 +69,11 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
             index === currentIndex ? (
               <motion.div
                 key={index}
-                style={{ width: `${100 / cards.length}%`, flexShrink: 0 }}
-                initial={{ opacity: 1, scale: 0.8 }}
+                style={{
+                  width: `${100 / cards.length}%`,
+                  flexShrink: 0,
+                  scale: 0.8,
+                }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
               >
@@ -82,9 +85,8 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
                 style={{
                   width: `${100 / cards.length}%`,
                   flexShrink: 0,
-                  scale: 0.8,
+                  scale: 1,
                 }}
-                initial={{ scale: 0.8, opacity: 0.5 }}
                 animate={{ scale: 0.8, opacity: 0.5 }}
                 transition={{ duration: 0.2 }}
               >
