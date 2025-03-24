@@ -72,7 +72,7 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
                 style={{
                   width: `${100 / cards.length}%`,
                   flexShrink: 0,
-                  scale: 0.8,
+                  scale: 1,
                 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
@@ -85,7 +85,7 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
                 style={{
                   width: `${100 / cards.length}%`,
                   flexShrink: 0,
-                  scale: 1,
+                  scale: 0.8,
                 }}
                 animate={{ scale: 0.8, opacity: 0.5 }}
                 transition={{ duration: 0.2 }}
