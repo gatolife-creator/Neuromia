@@ -32,10 +32,12 @@ export function Flashcard({
   return (
     <div
       className={cn(
-        "relative w-full lg:h-96 h-64 cursor-pointer perspective-1000",
+        `relative w-full lg:h-96 h-64 perspective-1000 ${
+          isStudying ? "cursor-pointer" : ""
+        }`,
         className
       )}
-      onClick={handleFlip}
+      onClick={isStudying ? handleFlip : () => {}}
     >
       <motion.div
         className="w-full h-full relative preserve-3d transition-all duration-500 transform-3d"
