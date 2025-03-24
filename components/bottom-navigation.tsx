@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Book, Home, UserRound, Construction } from "lucide-react";
+import { Book, Home, UserRound, Settings } from "lucide-react";
 
 export function BottomNavigation() {
   return (
@@ -16,9 +16,9 @@ export function BottomNavigation() {
         <UserRound className="mx-auto h-8" fontSize="32px" />
         <div className="w-full text-center text-xs h-6">グループ</div>
       </Link>
-      <Link href="#" className="bg-white">
-        <Construction className="mx-auto h-8" fontSize="32px" />
-        <div className="w-full text-center text-xs h-6">工事中...</div>
+      <Link href="/settings" className="bg-white">
+        <Settings className="mx-auto h-8" fontSize="32px" />
+        <div className="w-full text-center text-xs h-6">設定</div>
       </Link>
     </div>
   );

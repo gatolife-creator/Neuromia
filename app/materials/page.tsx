@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FlashcardsThumbnail } from "../../components/flashcards-thumnail";
 import { materialDB } from "@/lib/db";
 import { MaterialMetaData } from "@/lib/interfaces";
+import { PageTitle } from "../../components/page-title";
 
 export default function MaterialsPage() {
   const [materials, setMaterials] = useState<MaterialMetaData[]>([]);
@@ -15,15 +16,18 @@ export default function MaterialsPage() {
     })();
   }, []);
   return (
-    <div className="container mx-auto p-6 my-5">
-      {materials.map((material) => (
-        <FlashcardsThumbnail
-          className="my-5"
-          key={material.id}
-          id={material.id}
-          title={material.title}
-        />
-      ))}
+    <div>
+      <PageTitle>教材一覧</PageTitle>
+      <div className="container mx-auto p-6 my-5">
+        {materials.map((material) => (
+          <FlashcardsThumbnail
+            className="my-5"
+            key={material.id}
+            id={material.id}
+            title={material.title}
+          />
+        ))}
+      </div>
     </div>
   );
 }

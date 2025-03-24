@@ -1,4 +1,4 @@
-import { Home, Book, UsersRound } from "lucide-react";
+import { Home, Book, UsersRound, Settings } from "lucide-react";
 
 import {
   Sidebar,
@@ -27,6 +27,11 @@ const navigationItems = [
     title: "グループ",
     icon: UsersRound,
     href: "/groups",
+  },
+  {
+    title: "設定",
+    icon: Settings,
+    href: "/settings",
   },
 ];
 
