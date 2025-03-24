@@ -9,6 +9,7 @@ import { Header } from "@/components/header";
 import "./globals.css";
 import { motion } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
+import { BottomNavigation } from "../components/bottom-navigation";
 
 export default function RootLayout({
   children,
@@ -36,6 +37,7 @@ export default function RootLayout({
               </motion.main>
             </div>
           </div>
+          <BottomNavigation />
         </SidebarProvider>
         {/* </ThemeProvider> */}
       </body>
