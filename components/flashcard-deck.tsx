@@ -16,7 +16,6 @@ interface FlashcardDeckProps {
 export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { cards, title } = props;
-  console.log(title);
 
   const handleNext = () => {
     if (currentIndex < cards.length - 1) {
