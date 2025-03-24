@@ -3,7 +3,6 @@
 import { CardData } from "@/lib/interfaces";
 import { EditingFlashcard } from "./editing-flashcard";
 import { EditingFlashcardAdditionButton } from "./editing-flashcard-addition-button";
-import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface EditingFlashcardListProps {
@@ -23,27 +22,21 @@ export function EditingFlashcardList({ ...props }: EditingFlashcardListProps) {
     onClickCardAddition,
   } = props;
 
-  const [, setDeleting] = useState<number | null>(null);
-
   const handleDelete = (index: number) => {
-    setDeleting(index);
-    setTimeout(() => {
-      onClickDelete(index);
-      setDeleting(null);
-    }, 300); // Delay matches exit animation duration
+    onClickDelete(index);
   };
 
   return (
-    <div className="p-4">
-      <AnimatePresence>
-        <motion.div layout>
+    <div className="h-fit p-4">
+      <AnimatePresence mode="wait">
+        <motion.div className="overflow-hidden min-h-[calc(100vh-232px)] h-full">
           {cards.map((card, index) => (
             <motion.div
               layout
               key={card.id}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 10 }} // Slide out with slight scale and downward movement
+              initial={{ opacity: 0, scale: 0.9, y: 0 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 0 }} // Slide out with slight scale and downward movement
               transition={{ duration: 0.3, ease: "linear" }}
             >
               <EditingFlashcard
@@ -60,9 +53,11 @@ export function EditingFlashcardList({ ...props }: EditingFlashcardListProps) {
               />
             </motion.div>
           ))}
-          <EditingFlashcardAdditionButton
-            onClickCardAddition={onClickCardAddition}
-          />
+          <motion.div layout>
+            <EditingFlashcardAdditionButton
+              onClickCardAddition={onClickCardAddition}
+            />
+          </motion.div>
         </motion.div>
       </AnimatePresence>
     </div>
