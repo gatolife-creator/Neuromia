@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Flashcard } from "./flashcard";
 import { CardData } from "@/lib/interfaces";
+import { motion } from "framer-motion";
 
 interface FlashcardDeckProps {
   cards: CardData[];
@@ -56,11 +57,43 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
 
         <Progress value={progress} className="h-2" />
 
-        <Flashcard
-          front={cards[currentIndex].front}
-          back={cards[currentIndex].back}
+        <motion.div
+          animate={{ x: `-${currentIndex * (100 / cards.length)}%` }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          style={{
+            display: "flex",
+            width: `${cards.length * 100}%`,
+          }}
           className="my-8"
-        />
+        >
+          {cards.map((card, index) =>
+            index === currentIndex ? (
+              <motion.div
+                key={index}
+                style={{ width: `${100 / cards.length}%`, flexShrink: 0 }}
+                initial={{ opacity: 1, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Flashcard front={card.front} back={card.back} isStudying />
+              </motion.div>
+            ) : (
+              <motion.div
+                key={index}
+                style={{
+                  width: `${100 / cards.length}%`,
+                  flexShrink: 0,
+                  scale: 0.8,
+                }}
+                initial={{ scale: 0.8, opacity: 0.5 }}
+                animate={{ scale: 0.8, opacity: 0.5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Flashcard front={card.front} back={card.back} />
+              </motion.div>
+            )
+          )}
+        </motion.div>
 
         <div className="flex justify-between">
           <Button
