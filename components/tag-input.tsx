@@ -27,7 +27,7 @@ export function TagInput({ ...props }: TagInputProps) {
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace" && form.getValues("tag") === "") {
+    if (e.key === "Backspace" && !form.getValues("tag")) {
       console.log("tag is deleted");
       onRemoveTag();
     }
