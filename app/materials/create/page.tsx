@@ -14,7 +14,6 @@ export default function CreateMaterialPage() {
   const [cards, setCards] = useState<CardData[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const router = useRouter();
-  const ref = useRef<HTMLDivElement>(null);
   const prevCardsLength = useRef(cards.length);
 
   const onClickDelete = (index: number) => {
@@ -106,8 +105,8 @@ export default function CreateMaterialPage() {
   };
 
   useEffect(() => {
-    if (ref.current && cards.length > prevCardsLength.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    if (cards.length > prevCardsLength.current) {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }
     prevCardsLength.current = cards.length;
   }, [cards]);
@@ -130,7 +129,6 @@ export default function CreateMaterialPage() {
         onChangeBackInput={onChangeBackInput}
         onClickCardAddition={onClickCardAddition}
       />
-      <div ref={ref}></div>
     </div>
   );
 }

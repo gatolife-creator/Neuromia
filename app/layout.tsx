@@ -26,7 +26,7 @@ export default function RootLayout({
             <div className="flex flex-1">
               <AppSidebar />
               <motion.main
-                className="flex-1 mt-16"
+                className="flex-1 mt-16 mb-14"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ ease: "easeInOut", duration: 0.75 }}
