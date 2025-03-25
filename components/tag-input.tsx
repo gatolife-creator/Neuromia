@@ -3,28 +3,33 @@ import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 
 interface TagInputProps {
+  tags: string[];
+  onSubmitTag: (tag: string) => void;
+  onRemoveTag: () => void;
   className?: string;
 }
 
 export function TagInput({ ...props }: TagInputProps) {
-  const { className } = props;
-  const [tags, setTags] = useState<string[]>([]);
+  const { className, onSubmitTag, onRemoveTag, tags } = props;
+  //   const [tags, setTags] = useState<string[]>(initialTags || []);
   const [isFocused, setIsFocused] = useState(false);
   const form = useForm();
 
-  const onSubmit = () => {
+  const handleSubmit = () => {
+    console.log("submit tag");
     const tag = (form.getValues("tag") as string).trim();
     if (!tag) {
       console.log("tag is empty");
       return;
     }
-    setTags([...tags, tag]);
     form.setValue("tag", "");
+    onSubmitTag(tag);
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Backspace" && form.getValues("tag") === "") {
-      setTags(tags.slice(0, tags.length - 1));
+      console.log("tag is deleted");
+      onRemoveTag();
     }
   };
 
@@ -56,7 +61,7 @@ export function TagInput({ ...props }: TagInputProps) {
 
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="inline-block flex-grow-1 my-auto"
         >
           <FormField

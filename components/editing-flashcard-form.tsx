@@ -25,14 +25,27 @@ interface EditingFlashcardFormProps {
   type: "create" | "edit";
   title?: string;
   description?: string;
+  tags: string[];
   onMaterialCreationFormSubmit: (values: MaterialData) => void;
   onClickMaterialDelete: () => void;
+  onSubmitTag: (tag: string) => void;
+  onRemoveTag: () => void;
 }
 
 export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
-  const { onMaterialCreationFormSubmit, onClickMaterialDelete } = props;
+  const {
+    onMaterialCreationFormSubmit,
+    onClickMaterialDelete,
+    onSubmitTag,
+    onRemoveTag,
+    tags,
+  } = props;
   const materialCreationForm = useForm({
-    defaultValues: { title: props.title, description: props.description },
+    defaultValues: {
+      title: props.title,
+      description: props.description,
+      tags: props || ([] as string[]),
+    },
   });
 
   useEffect(() => {
@@ -58,7 +71,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
             onSubmit={materialCreationForm.handleSubmit(() => {
               if (onMaterialCreationFormSubmit) {
                 onMaterialCreationFormSubmit(
-                  materialCreationForm.getValues() as MaterialData
+                  materialCreationForm.getValues() as unknown as MaterialData
                 );
               }
             })}
@@ -142,7 +155,12 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
             />
           </form>
         </Form>
-        <TagInput className="mt-1 bg-white" />
+        <TagInput
+          className="mt-1 bg-white"
+          tags={tags}
+          onSubmitTag={onSubmitTag}
+          onRemoveTag={onRemoveTag}
+        />
       </div>
     </>
   );

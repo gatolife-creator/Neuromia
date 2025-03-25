@@ -4,6 +4,7 @@ interface MaterialDataOnDB {
   id: string;
   title: string;
   description: string;
+  tags: string[];
   serializedCards: string;
 }
 

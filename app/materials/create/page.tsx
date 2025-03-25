@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 
 export default function CreateMaterialPage() {
   const [cards, setCards] = useState<CardData[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const prevCardsLength = useRef(cards.length);
@@ -56,6 +57,7 @@ export default function CreateMaterialPage() {
       id,
       title,
       description,
+      tags,
       serializedCards: JSON.stringify(formattedCards),
     });
 
@@ -95,6 +97,14 @@ export default function CreateMaterialPage() {
     setCards([...cards, { id: uuidv4(), front: "", back: "" }]);
   };
 
+  const onSubmitTag = (tag: string) => {
+    setTags([...tags, tag]);
+  };
+
+  const onRemoveTag = () => {
+    setTags(tags.slice(0, tags.length - 1));
+  };
+
   useEffect(() => {
     if (ref.current && cards.length > prevCardsLength.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -108,6 +118,9 @@ export default function CreateMaterialPage() {
         type="create"
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
         onClickMaterialDelete={onClickMaterialDelete}
+        onSubmitTag={onSubmitTag}
+        onRemoveTag={onRemoveTag}
+        tags={tags}
       />
 
       <EditingFlashcardList

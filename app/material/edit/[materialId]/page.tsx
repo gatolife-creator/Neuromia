@@ -16,7 +16,11 @@ export default function EditMaterialPage({
   params: Promise<{ materialId: string }>;
 }) {
   const [materialId, setMaterialId] = useState("");
-  const [material, setMaterial] = useState({ title: "", description: "" });
+  const [material, setMaterial] = useState({
+    title: "",
+    description: "",
+  });
+  const [tags, setTags] = useState<string[]>([]);
   const [cards, setCards] = useState<CardData[]>([]);
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
@@ -43,6 +47,7 @@ export default function EditMaterialPage({
       .modify({
         title,
         description,
+        tags,
         serializedCards: JSON.stringify(
           cards.filter((card) => card.front.trimEnd() && card.back.trimEnd())
         ),
@@ -91,6 +96,14 @@ export default function EditMaterialPage({
     setCards([...cards, { id: uuidv4(), front: "", back: "" }]);
   };
 
+  const onSubmitTag = (tag: string) => {
+    setTags([...(tags || []), tag]);
+  };
+
+  const onRemoveTag = () => {
+    setTags((prevTags) => prevTags.slice(0, -1));
+  };
+
   useEffect(() => {
     (async () => {
       const { materialId } = await params;
@@ -99,8 +112,9 @@ export default function EditMaterialPage({
         const material = await materialDB.materials.get({ id: materialId });
         setMaterialId(materialId);
         if (material) {
-          const { title, description, serializedCards } = material;
+          const { title, description, tags, serializedCards } = material;
           setMaterial({ title, description });
+          setTags(tags);
           setCards(JSON.parse(serializedCards));
         } else {
           console.error("Material not found");
@@ -122,8 +136,11 @@ export default function EditMaterialPage({
         type="edit"
         title={material.title}
         description={material.description}
+        tags={tags}
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
         onClickMaterialDelete={onClickMaterialDelete}
+        onSubmitTag={onSubmitTag}
+        onRemoveTag={onRemoveTag}
       />
       <EditingFlashcardList
         cards={cards}

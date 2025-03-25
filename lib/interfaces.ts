@@ -14,5 +14,6 @@ export interface MaterialData {
   id: string;
   title: string;
   description: string;
-  cards: Array<CardData>;
+  tags: string[];
+  cards: CardData[];
 }
