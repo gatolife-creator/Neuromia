@@ -1,6 +1,4 @@
 import Link from "next/link";
-
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +15,6 @@ export function Header() {
     <header className="fixed top-0 z-40 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <SidebarTrigger className="sm:block hidden" />
           <Link href="/" className="flex items-center gap-2">
             <span className="text-xl font-bold">My App</span>
           </Link>
