@@ -1,14 +1,17 @@
 "use client";
 
 import { EditingFlashcardList } from "@/components/editing-flashcard-list";
-import { materialDB } from "@/lib/db";
-import { CardData, MaterialData } from "@/lib/interfaces";
+import { MaterialData } from "@/lib/interfaces";
 import React, { useEffect, useRef, useState } from "react";
 import { EditingFlashcardForm } from "../../../../components/editing-flashcard-form";
 import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
+import { useMaterial } from "@/hooks/use-material";
+import { useTags } from "@/hooks/use-tags";
+import { useCards } from "@/hooks/use-cards";
+import { useDatabase } from "@/hooks/use-database";
 
 export default function EditMaterialPage({
   params,
@@ -16,12 +19,11 @@ export default function EditMaterialPage({
   params: Promise<{ materialId: string }>;
 }) {
   const [materialId, setMaterialId] = useState("");
-  const [material, setMaterial] = useState({
-    title: "",
-    description: "",
-  });
-  const [tags, setTags] = useState<string[]>([]);
-  const [cards, setCards] = useState<CardData[]>([]);
+  const { material } = useMaterial(materialId);
+  const { tags, setTags } = useTags(materialId);
+  const { cards, setCards } = useCards(materialId);
+  const { updateDatabase, deleteMaterial } = useDatabase(materialId);
+
   const router = useRouter();
   const prevCardsLength = useRef(cards.length);
 
@@ -40,43 +42,33 @@ export default function EditMaterialPage({
       );
     }
 
-    materialDB.materials
-      .where("id")
-      .equals(materialId)
-      .modify({
-        title,
-        description,
-        tags,
-        serializedCards: JSON.stringify(
-          cards.filter((card) => card.front.trimEnd() && card.back.trimEnd())
-        ),
-      });
-
-    toast(
-      <div className="flex items-center">
-        <CheckCircle color="green" className="mr-2" />
-        <div>教材が更新されました</div>
-      </div>,
-      {
-        action: {
-          label: "取り消す",
-          onClick: () => console.log("取り消す"),
-        },
-      }
-    );
-
-    router.push("/materials");
+    updateDatabase(title, description, tags, cards, () => {
+      toast(
+        <div className="flex items-center">
+          <CheckCircle color="green" className="mr-2" />
+          <div>教材が更新されました</div>
+        </div>,
+        {
+          action: {
+            label: "取り消す",
+            onClick: () => console.log("取り消す"),
+          },
+        }
+      );
+      router.push("/materials");
+    });
   };
 
   const onClickMaterialDelete = async () => {
-    await materialDB.materials.delete(materialId);
-    toast(
-      <div className="flex items-center">
-        <CheckCircle color="green" className="mr-2" />
-        <div>教材が削除されました</div>
-      </div>
-    );
-    router.push("/materials");
+    deleteMaterial(() => {
+      toast(
+        <div className="flex items-center">
+          <CheckCircle color="green" className="mr-2" />
+          <div>教材が削除されました</div>
+        </div>
+      );
+      router.push("/materials");
+    });
   };
 
   const onChangeFrontInput = (index: number, front: string) => {
@@ -106,19 +98,7 @@ export default function EditMaterialPage({
   useEffect(() => {
     (async () => {
       const { materialId } = await params;
-
-      if (materialId) {
-        const material = await materialDB.materials.get({ id: materialId });
-        setMaterialId(materialId);
-        if (material) {
-          const { title, description, tags, serializedCards } = material;
-          setMaterial({ title, description });
-          setTags(tags);
-          setCards(JSON.parse(serializedCards));
-        } else {
-          console.error("Material not found");
-        }
-      }
+      setMaterialId(materialId);
     })();
   }, [params]);
 
