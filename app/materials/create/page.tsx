@@ -3,16 +3,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { EditingFlashcardList } from "../../../components/editing-flashcard-list";
 import { CardData, MaterialMetaData } from "@/lib/interfaces";
-import { materialDB } from "@/lib/db";
 import { v4 as uuidv4 } from "uuid";
 import { EditingFlashcardForm } from "../../../components/editing-flashcard-form";
 import { toast } from "sonner";
 import { CheckCircle, XOctagon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useDatabase } from "../../../hooks/use-database";
 
 export default function CreateMaterialPage() {
+  const [materialId] = useState(uuidv4());
   const [cards, setCards] = useState<CardData[]>([]);
   const [tags, setTags] = useState<string[]>([]);
+  const { updateDatabase } = useDatabase(materialId);
   const router = useRouter();
   const prevCardsLength = useRef(cards.length);
 
@@ -23,7 +25,6 @@ export default function CreateMaterialPage() {
 
   const onMaterialCreationFormSubmit = async (values: MaterialMetaData) => {
     const { title, description } = values;
-    const id = uuidv4();
 
     if (!title) {
       toast(
@@ -37,6 +38,7 @@ export default function CreateMaterialPage() {
 
     const formattedCards = cards
       .map((card) => ({
+        id: card.id,
         front: card.front.trimEnd(),
         back: card.back.trimEnd(),
       }))
@@ -52,28 +54,22 @@ export default function CreateMaterialPage() {
       return;
     }
 
-    materialDB.materials.add({
-      id,
-      title,
-      description,
-      tags,
-      serializedCards: JSON.stringify(formattedCards),
+    updateDatabase(title, description, tags, formattedCards, () => {
+      toast(
+        <div className="flex items-center">
+          <CheckCircle color="green" className="mr-2" />
+          <div>教材が作成されました</div>
+        </div>,
+        {
+          action: {
+            label: "取り消す",
+            onClick: () => console.log("取り消す"),
+          },
+        }
+      );
+
+      router.push("/materials");
     });
-
-    toast(
-      <div className="flex items-center">
-        <CheckCircle color="green" className="mr-2" />
-        <div>教材が作成されました</div>
-      </div>,
-      {
-        action: {
-          label: "取り消す",
-          onClick: () => console.log("取り消す"),
-        },
-      }
-    );
-
-    router.push("/materials");
   };
 
   const onClickMaterialDelete = () => {
