@@ -8,18 +8,23 @@ interface FlashcardProps {
   front: string;
   back: string;
   isStudying?: boolean;
+  onFlip?: (isFlipped: boolean) => void;
   className?: string;
 }
 
 export function Flashcard({
   front,
   back,
+  onFlip,
   isStudying,
   className,
 }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleFlip = () => {
+    if (onFlip) {
+      onFlip(!isFlipped);
+    }
     setIsFlipped(!isFlipped);
   };
 

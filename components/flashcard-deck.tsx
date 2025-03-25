@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronLeft, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Flashcard } from "./flashcard";
@@ -16,6 +16,11 @@ interface FlashcardDeckProps {
 export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { cards, title } = props;
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const handleFlip = (state: boolean) => {
+    setIsFlipped(state);
+  };
 
   const handleNext = () => {
     if (currentIndex < cards.length - 1) {
@@ -34,6 +39,10 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
   };
 
   const progress = ((currentIndex + 1) / cards.length) * 100;
+
+  useEffect(() => {
+    setIsFlipped(false);
+  }, [currentIndex]);
 
   return (
     <div className="w-full mx-auto space-y-6">
@@ -77,7 +86,12 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
               >
-                <Flashcard front={card.front} back={card.back} isStudying />
+                <Flashcard
+                  front={card.front}
+                  back={card.back}
+                  isStudying
+                  onFlip={handleFlip}
+                />
               </motion.div>
             ) : (
               <motion.div
@@ -96,7 +110,7 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
           )}
         </motion.div>
 
-        <div className="flex justify-between">
+        <div className="grid grid-cols-5 gap-4">
           <Button
             variant="outline"
             onClick={handlePrevious}
@@ -106,11 +120,36 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
             戻る
           </Button>
           <Button
+            className="cursor-pointer"
             onClick={handleNext}
-            disabled={currentIndex === cards.length - 1}
+            variant="destructive"
+            disabled={!isFlipped}
           >
-            次へ
-            <ChevronRight className="h-4 w-4 ml-2" />
+            もう1回
+          </Button>
+          <Button
+            className="cursor-pointer"
+            onClick={handleNext}
+            variant="warning"
+            disabled={!isFlipped}
+          >
+            難しい
+          </Button>
+          <Button
+            className="cursor-pointer"
+            onClick={handleNext}
+            variant="success"
+            disabled={!isFlipped}
+          >
+            できた
+          </Button>
+          <Button
+            className="cursor-pointer"
+            onClick={handleNext}
+            variant="easy"
+            disabled={!isFlipped}
+          >
+            簡単
           </Button>
         </div>
       </div>
