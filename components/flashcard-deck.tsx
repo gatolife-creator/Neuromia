@@ -110,13 +110,13 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
           )}
         </motion.div>
 
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-5 gap-1">
           <Button
             variant="outline"
             onClick={handlePrevious}
             disabled={currentIndex === 0}
           >
-            <ChevronLeft className="h-4 w-4 mr-2" />
+            <ChevronLeft className="h-4 w-4 mr-3" />
             戻る
           </Button>
           <Button
