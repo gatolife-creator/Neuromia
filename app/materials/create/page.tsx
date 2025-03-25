@@ -14,7 +14,7 @@ export default function CreateMaterialPage() {
   const [materialId] = useState(uuidv4());
   const [cards, setCards] = useState<CardData[]>([]);
   const [tags, setTags] = useState<string[]>([]);
-  const { updateDatabase } = useDatabase(materialId);
+  const { putMaterial } = useDatabase(materialId);
   const router = useRouter();
   const prevCardsLength = useRef(cards.length);
 
@@ -54,7 +54,7 @@ export default function CreateMaterialPage() {
       return;
     }
 
-    updateDatabase(title, description, tags, formattedCards, () => {
+    putMaterial(title, description, tags, formattedCards, () => {
       toast(
         <div className="flex items-center">
           <CheckCircle color="green" className="mr-2" />

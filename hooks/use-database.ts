@@ -2,7 +2,7 @@ import { materialDB } from "@/lib/db";
 import { CardData } from "@/lib/interfaces";
 
 export function useDatabase(materialId: string) {
-  const updateDatabase = (
+  const updateMaterial = (
     title: string,
     description: string,
     tags: string[],
@@ -13,6 +13,30 @@ export function useDatabase(materialId: string) {
       .where("id")
       .equals(materialId)
       .modify({
+        title,
+        description,
+        tags,
+        serializedCards: JSON.stringify(
+          cards.filter((card) => card.front.trimEnd() && card.back.trimEnd())
+        ),
+      })
+      .then(() => {
+        if (callback) {
+          callback();
+        }
+      });
+  };
+
+  const putMaterial = (
+    title: string,
+    description: string,
+    tags: string[],
+    cards: CardData[],
+    callback?: () => void
+  ) => {
+    materialDB.materials
+      .put({
+        id: materialId,
         title,
         description,
         tags,
@@ -39,5 +63,5 @@ export function useDatabase(materialId: string) {
       });
   };
 
-  return { updateDatabase, deleteMaterial };
+  return { updateMaterial, putMaterial, deleteMaterial };
 }

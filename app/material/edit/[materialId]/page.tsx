@@ -22,7 +22,7 @@ export default function EditMaterialPage({
   const { material } = useMaterial(materialId);
   const { tags, setTags } = useTags(materialId);
   const { cards, setCards } = useCards(materialId);
-  const { updateDatabase, deleteMaterial } = useDatabase(materialId);
+  const { updateMaterial, deleteMaterial } = useDatabase(materialId);
 
   const router = useRouter();
   const prevCardsLength = useRef(cards.length);
@@ -42,7 +42,7 @@ export default function EditMaterialPage({
       );
     }
 
-    updateDatabase(title, description, tags, cards, () => {
+    updateMaterial(title, description, tags, cards, () => {
       toast(
         <div className="flex items-center">
           <CheckCircle color="green" className="mr-2" />
