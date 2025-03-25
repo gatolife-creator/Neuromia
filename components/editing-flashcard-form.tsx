@@ -8,6 +8,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { MaterialData } from "@/lib/interfaces";
 import { useEffect } from "react";
+import { TagInput } from "./tag-input";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -61,7 +62,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                 );
               }
             })}
-            className="space-y-4 mx-auto"
+            className="space-y-1 mx-auto"
           >
             <div className="flex justify-between items-center p-4">
               <div className="text-2xl font-bold">
@@ -138,9 +139,10 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                   <FormMessage />
                 </FormItem>
               )}
-            ></FormField>
+            />
           </form>
         </Form>
+        <TagInput className="mt-1 bg-white" />
       </div>
     </>
   );
