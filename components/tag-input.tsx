@@ -13,7 +13,11 @@ export function TagInput({ ...props }: TagInputProps) {
   const form = useForm();
 
   const onSubmit = () => {
-    const tag = form.getValues("tag");
+    const tag = (form.getValues("tag") as string).trim();
+    if (!tag) {
+      console.log("tag is empty");
+      return;
+    }
     setTags([...tags, tag]);
     form.setValue("tag", "");
   };
