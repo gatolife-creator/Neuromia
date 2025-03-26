@@ -15,7 +15,8 @@ export default function CreateMaterialPage() {
   const {
     tags,
     cards,
-    setTags,
+    addTag,
+    removeTag,
     setCards,
     editFrontSideOfCard,
     editBackSideOfCard,
@@ -83,14 +84,6 @@ export default function CreateMaterialPage() {
     router.push("/materials");
   };
 
-  const onSubmitTag = (tag: string) => {
-    setTags([...tags, tag]);
-  };
-
-  const onRemoveTag = () => {
-    setTags(tags.slice(0, tags.length - 1));
-  };
-
   useEffect(() => {
     if (cards.length > prevCardsLength.current) {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
@@ -104,8 +97,8 @@ export default function CreateMaterialPage() {
         type="create"
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
         onClickMaterialDelete={onClickMaterialDelete}
-        onSubmitTag={onSubmitTag}
-        onRemoveTag={onRemoveTag}
+        onSubmitTag={addTag}
+        onRemoveTag={() => removeTag(tags.length - 1)}
         tags={tags}
       />
 
