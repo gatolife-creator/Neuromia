@@ -1,6 +1,7 @@
 import { MaterialDataOnDB, materialDB } from "@/lib/db";
 import { CardData } from "@/lib/interfaces";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export function useDatabaseById(materialId: string) {
   const [tags, setTags] = useState<string[]>([]);
@@ -22,6 +23,30 @@ export function useDatabaseById(materialId: string) {
         }
       });
   }, [materialId]);
+
+  const editFrontSideOfCard = (index: number, front: string) => {
+    setCards((prevCards) =>
+      prevCards.map((card, i) => (i === index ? { ...card, front } : card))
+    );
+  };
+
+  const editBackSideOfCard = (index: number, back: string) => {
+    setCards((prevCards) =>
+      prevCards.map((card, i) => (i === index ? { ...card, back } : card))
+    );
+  };
+
+  const addCard = () => {
+    setCards([...cards, { id: uuidv4(), front: "", back: "" }]);
+  };
+
+  const addTag = (tag: string) => {
+    setTags([...tags, tag]);
+  };
+
+  const removeTag = (index: number) => {
+    setTags(tags.filter((_, i) => i !== index));
+  };
 
   const updateMaterial = (
     title: string,
@@ -90,6 +115,11 @@ export function useDatabaseById(materialId: string) {
     material,
     setTags,
     setCards,
+    editFrontSideOfCard,
+    editBackSideOfCard,
+    addCard,
+    addTag,
+    removeTag,
     setMaterial,
     updateMaterial,
     putMaterial,

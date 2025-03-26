@@ -12,8 +12,16 @@ import { useDatabaseById } from "../../../hooks/use-database-by-id";
 
 export default function CreateMaterialPage() {
   const [materialId] = useState(uuidv4());
-  const { tags, cards, setTags, setCards, putMaterial } =
-    useDatabaseById(materialId);
+  const {
+    tags,
+    cards,
+    setTags,
+    setCards,
+    editFrontSideOfCard,
+    editBackSideOfCard,
+    addCard,
+    putMaterial,
+  } = useDatabaseById(materialId);
   const router = useRouter();
   const prevCardsLength = useRef(cards.length);
 
@@ -75,22 +83,6 @@ export default function CreateMaterialPage() {
     router.push("/materials");
   };
 
-  const onChangeFrontInput = (index: number, front: string) => {
-    setCards((prevCards) =>
-      prevCards.map((card, i) => (i === index ? { ...card, front } : card))
-    );
-  };
-
-  const onChangeBackInput = (index: number, back: string) => {
-    setCards((prevCards) =>
-      prevCards.map((card, i) => (i === index ? { ...card, back } : card))
-    );
-  };
-
-  const onClickCardAddition = () => {
-    setCards([...cards, { id: uuidv4(), front: "", back: "" }]);
-  };
-
   const onSubmitTag = (tag: string) => {
     setTags([...tags, tag]);
   };
@@ -120,9 +112,9 @@ export default function CreateMaterialPage() {
       <EditingFlashcardList
         cards={cards}
         onClickDelete={onClickDelete}
-        onChangeFrontInput={onChangeFrontInput}
-        onChangeBackInput={onChangeBackInput}
-        onClickCardAddition={onClickCardAddition}
+        onChangeFrontInput={editFrontSideOfCard}
+        onChangeBackInput={editBackSideOfCard}
+        onClickCardAddition={addCard}
       />
     </div>
   );

@@ -7,7 +7,6 @@ import { EditingFlashcardForm } from "../../../../components/editing-flashcard-f
 import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { v4 as uuidv4 } from "uuid";
 import { useDatabaseById } from "@/hooks/use-database-by-id";
 
 export default function EditMaterialPage({
@@ -20,8 +19,12 @@ export default function EditMaterialPage({
     tags,
     cards,
     material,
-    setTags,
+    addTag,
+    removeTag,
     setCards,
+    editFrontSideOfCard,
+    editBackSideOfCard,
+    addCard,
     updateMaterial,
     deleteMaterial,
   } = useDatabaseById(materialId);
@@ -73,30 +76,6 @@ export default function EditMaterialPage({
     });
   };
 
-  const onChangeFrontInput = (index: number, front: string) => {
-    setCards((prevCards) =>
-      prevCards.map((card, i) => (i === index ? { ...card, front } : card))
-    );
-  };
-
-  const onChangeBackInput = (index: number, back: string) => {
-    setCards((prevCards) =>
-      prevCards.map((card, i) => (i === index ? { ...card, back } : card))
-    );
-  };
-
-  const onClickCardAddition = () => {
-    setCards([...cards, { id: uuidv4(), front: "", back: "" }]);
-  };
-
-  const onSubmitTag = (tag: string) => {
-    setTags([...(tags || []), tag]);
-  };
-
-  const onRemoveTag = () => {
-    setTags((prevTags) => prevTags.slice(0, -1));
-  };
-
   useEffect(() => {
     (async () => {
       const { materialId } = await params;
@@ -120,15 +99,15 @@ export default function EditMaterialPage({
         tags={tags}
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
         onClickMaterialDelete={onClickMaterialDelete}
-        onSubmitTag={onSubmitTag}
-        onRemoveTag={onRemoveTag}
+        onSubmitTag={addTag}
+        onRemoveTag={() => removeTag(tags.length - 1)}
       />
       <EditingFlashcardList
         cards={cards}
         onClickDelete={onClickDelete}
-        onChangeFrontInput={onChangeFrontInput}
-        onChangeBackInput={onChangeBackInput}
-        onClickCardAddition={onClickCardAddition}
+        onChangeFrontInput={editFrontSideOfCard}
+        onChangeBackInput={editBackSideOfCard}
+        onClickCardAddition={addCard}
       />
     </>
   );
