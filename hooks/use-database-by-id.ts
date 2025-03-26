@@ -1,7 +1,28 @@
-import { materialDB } from "@/lib/db";
+import { MaterialDataOnDB, materialDB } from "@/lib/db";
 import { CardData } from "@/lib/interfaces";
+import { useEffect, useState } from "react";
 
-export function useDatabase(materialId: string) {
+export function useDatabaseById(materialId: string) {
+  const [tags, setTags] = useState<string[]>([]);
+  const [cards, setCards] = useState<CardData[]>([]);
+  const [material, setMaterial] = useState<MaterialDataOnDB>();
+
+  useEffect(() => {
+    materialDB.materials
+      .where("id")
+      .equals(materialId)
+      .first()
+      .then((material) => {
+        if (material) {
+          setTags(material.tags);
+          setCards(JSON.parse(material.serializedCards));
+          setMaterial(material);
+        } else {
+          console.error("Material not found");
+        }
+      });
+  }, [materialId]);
+
   const updateMaterial = (
     title: string,
     description: string,
@@ -63,5 +84,15 @@ export function useDatabase(materialId: string) {
       });
   };
 
-  return { updateMaterial, putMaterial, deleteMaterial };
+  return {
+    tags,
+    cards,
+    material,
+    setTags,
+    setCards,
+    setMaterial,
+    updateMaterial,
+    putMaterial,
+    deleteMaterial,
+  };
 }

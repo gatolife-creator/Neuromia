@@ -8,10 +8,7 @@ import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-import { useMaterial } from "@/hooks/use-material";
-import { useTags } from "@/hooks/use-tags";
-import { useCards } from "@/hooks/use-cards";
-import { useDatabase } from "@/hooks/use-database";
+import { useDatabaseById } from "@/hooks/use-database-by-id";
 
 export default function EditMaterialPage({
   params,
@@ -19,10 +16,15 @@ export default function EditMaterialPage({
   params: Promise<{ materialId: string }>;
 }) {
   const [materialId, setMaterialId] = useState("");
-  const { material } = useMaterial(materialId);
-  const { tags, setTags } = useTags(materialId);
-  const { cards, setCards } = useCards(materialId);
-  const { updateMaterial, deleteMaterial } = useDatabase(materialId);
+  const {
+    tags,
+    cards,
+    material,
+    setTags,
+    setCards,
+    updateMaterial,
+    deleteMaterial,
+  } = useDatabaseById(materialId);
 
   const router = useRouter();
   const prevCardsLength = useRef(cards.length);
@@ -113,8 +115,8 @@ export default function EditMaterialPage({
     <>
       <EditingFlashcardForm
         type="edit"
-        title={material.title}
-        description={material.description}
+        title={material?.title}
+        description={material?.description}
         tags={tags}
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
         onClickMaterialDelete={onClickMaterialDelete}

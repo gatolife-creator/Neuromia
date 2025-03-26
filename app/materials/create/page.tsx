@@ -2,19 +2,18 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { EditingFlashcardList } from "../../../components/editing-flashcard-list";
-import { CardData, MaterialMetaData } from "@/lib/interfaces";
+import { MaterialMetaData } from "@/lib/interfaces";
 import { v4 as uuidv4 } from "uuid";
 import { EditingFlashcardForm } from "../../../components/editing-flashcard-form";
 import { toast } from "sonner";
 import { CheckCircle, XOctagon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useDatabase } from "../../../hooks/use-database";
+import { useDatabaseById } from "../../../hooks/use-database-by-id";
 
 export default function CreateMaterialPage() {
   const [materialId] = useState(uuidv4());
-  const [cards, setCards] = useState<CardData[]>([]);
-  const [tags, setTags] = useState<string[]>([]);
-  const { putMaterial } = useDatabase(materialId);
+  const { tags, cards, setTags, setCards, putMaterial } =
+    useDatabaseById(materialId);
   const router = useRouter();
   const prevCardsLength = useRef(cards.length);
 
