@@ -6,7 +6,7 @@ const materialDB = new Dexie("materials") as Dexie & {
 };
 
 materialDB.version(1).stores({
-  materials: "id,title,description,serializedCards",
+  materials: "id,title,description,cards,tags",
 });
 
 export { materialDB };
