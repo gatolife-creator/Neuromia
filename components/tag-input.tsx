@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
+import { X } from "lucide-react";
+import { Button } from "./ui/button";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface TagInputProps {
   tags: string[];
   onSubmitTag: (tag: string) => void;
-  onRemoveTag: () => void;
+  onRemoveTagByIndex: (index: number) => void;
   className?: string;
 }
 
 export function TagInput({ ...props }: TagInputProps) {
-  const { className, onSubmitTag, onRemoveTag, tags } = props;
-  //   const [tags, setTags] = useState<string[]>(initialTags || []);
+  const { className, onSubmitTag, onRemoveTagByIndex, tags } = props;
   const [isFocused, setIsFocused] = useState(false);
   const form = useForm();
 
@@ -29,7 +31,7 @@ export function TagInput({ ...props }: TagInputProps) {
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Backspace" && !form.getValues("tag")) {
       console.log("tag is deleted");
-      onRemoveTag();
+      onRemoveTagByIndex(tags.length - 1);
     }
   };
 
@@ -47,17 +49,31 @@ export function TagInput({ ...props }: TagInputProps) {
         className && className
       } ${isFocused && "border-ring ring-ring/50 ring-[3px]"}`}
     >
-      <div className="flex items-center">
-        {tags &&
-          tags.map((tag) => (
-            <div
-              key={tag}
-              className="inline-block bg-black text-white px-2 mx-1 rounded-full"
-            >
-              {tag}
-            </div>
-          ))}
-      </div>
+      <AnimatePresence>
+        <div className="flex items-center">
+          {tags &&
+            tags.map((tag, index) => (
+              <motion.div
+                layout
+                key={tag}
+                className="flex items-center justify-between bg-black text-white px-2 mx-1 rounded-full"
+                initial={{ opacity: 1, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 1, scale: 0.9 }}
+                transition={{ duration: 0.1 }}
+              >
+                <Button
+                  size="icon"
+                  className="w-4 h-4 my-auto mr-1"
+                  onClick={() => onRemoveTagByIndex(index)}
+                >
+                  <X size={5} className="inline-block my-auto" />
+                </Button>
+                <div>{tag}</div>
+              </motion.div>
+            ))}
+        </div>
+      </AnimatePresence>
 
       <Form {...form}>
         <form

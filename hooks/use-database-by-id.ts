@@ -48,6 +48,8 @@ export function useDatabaseById(materialId: string) {
     setTags(tags.filter((_, i) => i !== index));
   };
 
+  
+
   const updateMaterial = (
     title: string,
     description: string,

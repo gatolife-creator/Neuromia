@@ -100,7 +100,7 @@ export default function EditMaterialPage({
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
         onClickMaterialDelete={onClickMaterialDelete}
         onSubmitTag={addTag}
-        onRemoveTag={() => removeTag(tags.length - 1)}
+        onRemoveTagByIndex={(index: number) => removeTag(index)}
       />
       <EditingFlashcardList
         cards={cards}

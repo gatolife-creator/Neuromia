@@ -29,7 +29,7 @@ interface EditingFlashcardFormProps {
   onMaterialCreationFormSubmit: (values: MaterialData) => void;
   onClickMaterialDelete: () => void;
   onSubmitTag: (tag: string) => void;
-  onRemoveTag: () => void;
+  onRemoveTagByIndex: (index: number) => void;
 }
 
 export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
@@ -37,7 +37,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
     onMaterialCreationFormSubmit,
     onClickMaterialDelete,
     onSubmitTag,
-    onRemoveTag,
+    onRemoveTagByIndex,
     tags,
   } = props;
   const materialCreationForm = useForm({
@@ -159,7 +159,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
           className="mt-1 bg-white"
           tags={tags}
           onSubmitTag={onSubmitTag}
-          onRemoveTag={onRemoveTag}
+          onRemoveTagByIndex={onRemoveTagByIndex}
         />
       </div>
     </>
