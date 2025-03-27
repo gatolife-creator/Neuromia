@@ -98,7 +98,7 @@ export default function CreateMaterialPage() {
         onMaterialCreationFormSubmit={onMaterialCreationFormSubmit}
         onClickMaterialDelete={onClickMaterialDelete}
         onSubmitTag={addTag}
-        onRemoveTag={() => removeTag(tags.length - 1)}
+        onRemoveTagByIndex={(index) => removeTag(index)}
         tags={tags}
       />
 

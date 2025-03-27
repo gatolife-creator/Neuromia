@@ -30,7 +30,7 @@ interface EditingFlashcardFormProps {
   onClickMaterialDelete: () => void;
   onSubmitTag: (tag: string) => void;
   onRemoveTagByIndex: (index: number) => void;
-  exportCardData: () => void;
+  exportCardData?: () => void;
 }
 
 export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
