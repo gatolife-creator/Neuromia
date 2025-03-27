@@ -48,8 +48,6 @@ export function useDatabaseById(materialId: string) {
     setTags(tags.filter((_, i) => i !== index));
   };
 
-  
-
   const updateMaterial = (
     title: string,
     description: string,
@@ -111,6 +109,14 @@ export function useDatabaseById(materialId: string) {
       });
   };
 
+  const getAllData = (callback: (material: MaterialDataOnDB) => void) => {
+    materialDB.materials.get(materialId).then((material) => {
+      if (material) {
+        callback(material);
+      }
+    });
+  };
+
   return {
     tags,
     cards,
@@ -126,5 +132,6 @@ export function useDatabaseById(materialId: string) {
     updateMaterial,
     putMaterial,
     deleteMaterial,
+    getAllData,
   };
 }

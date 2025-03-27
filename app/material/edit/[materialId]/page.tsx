@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useDatabaseById } from "@/hooks/use-database-by-id";
+import { MaterialDataOnDB } from "@/lib/db";
 
 export default function EditMaterialPage({
   params,
@@ -27,6 +28,7 @@ export default function EditMaterialPage({
     addCard,
     updateMaterial,
     deleteMaterial,
+    getAllData,
   } = useDatabaseById(materialId);
 
   const router = useRouter();
@@ -76,6 +78,21 @@ export default function EditMaterialPage({
     });
   };
 
+  const exportCardData = () => {
+    getAllData((material: MaterialDataOnDB) => {
+      const blob = new Blob([JSON.stringify(material)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${material.title}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  };
+
   useEffect(() => {
     (async () => {
       const { materialId } = await params;
@@ -101,6 +118,7 @@ export default function EditMaterialPage({
         onClickMaterialDelete={onClickMaterialDelete}
         onSubmitTag={addTag}
         onRemoveTagByIndex={(index: number) => removeTag(index)}
+        exportCardData={exportCardData}
       />
       <EditingFlashcardList
         cards={cards}

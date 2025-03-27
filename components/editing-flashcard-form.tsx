@@ -30,6 +30,7 @@ interface EditingFlashcardFormProps {
   onClickMaterialDelete: () => void;
   onSubmitTag: (tag: string) => void;
   onRemoveTagByIndex: (index: number) => void;
+  exportCardData: () => void;
 }
 
 export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
@@ -38,6 +39,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
     onClickMaterialDelete,
     onSubmitTag,
     onRemoveTagByIndex,
+    exportCardData,
     tags,
   } = props;
   const materialCreationForm = useForm({
@@ -85,6 +87,15 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                 <Button type="submit" className="cursor-pointer mx-1">
                   {props.type === "create" ? "作成" : "更新"}
                 </Button>
+                {props.type === "edit" && (
+                  <Button
+                    type="button"
+                    className="cursor-pointer"
+                    onClick={exportCardData}
+                  >
+                    エクスポート
+                  </Button>
+                )}
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button
