@@ -1,12 +1,12 @@
-import { MaterialDataOnDB, materialDB } from "@/lib/db";
-import { CardData } from "@/lib/interfaces";
+import { materialDB } from "@/lib/db";
+import { CardData, MaterialData } from "@/lib/interfaces";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export function useDatabaseById(materialId: string) {
   const [tags, setTags] = useState<string[]>([]);
   const [cards, setCards] = useState<CardData[]>([]);
-  const [material, setMaterial] = useState<MaterialDataOnDB>();
+  const [material, setMaterial] = useState<MaterialData>();
 
   useEffect(() => {
     materialDB.materials
@@ -16,7 +16,7 @@ export function useDatabaseById(materialId: string) {
       .then((material) => {
         if (material) {
           setTags(material.tags);
-          setCards(JSON.parse(material.serializedCards));
+          setCards(material.cards);
           setMaterial(material);
         } else {
           console.error("Material not found");
@@ -62,8 +62,8 @@ export function useDatabaseById(materialId: string) {
         title,
         description,
         tags,
-        serializedCards: JSON.stringify(
-          cards.filter((card) => card.front.trimEnd() && card.back.trimEnd())
+        cards: cards.filter(
+          (card) => card.front.trimEnd() && card.back.trimEnd()
         ),
       })
       .then(() => {
@@ -86,8 +86,8 @@ export function useDatabaseById(materialId: string) {
         title,
         description,
         tags,
-        serializedCards: JSON.stringify(
-          cards.filter((card) => card.front.trimEnd() && card.back.trimEnd())
+        cards: cards.filter(
+          (card) => card.front.trimEnd() && card.back.trimEnd()
         ),
       })
       .then(() => {
@@ -109,7 +109,7 @@ export function useDatabaseById(materialId: string) {
       });
   };
 
-  const getAllData = (callback: (material: MaterialDataOnDB) => void) => {
+  const getAllData = (callback: (material: MaterialData) => void) => {
     materialDB.materials.get(materialId).then((material) => {
       if (material) {
         callback(material);

@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useDatabaseById } from "@/hooks/use-database-by-id";
-import { MaterialDataOnDB } from "@/lib/db";
 
 export default function EditMaterialPage({
   params,
@@ -79,7 +78,7 @@ export default function EditMaterialPage({
   };
 
   const exportCardData = () => {
-    getAllData((material: MaterialDataOnDB) => {
+    getAllData((material: MaterialData) => {
       const blob = new Blob([JSON.stringify(material)], {
         type: "application/json",
       });

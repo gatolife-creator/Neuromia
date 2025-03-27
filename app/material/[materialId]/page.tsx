@@ -20,8 +20,8 @@ export default function MaterialPage({
 
       const material = await materialDB.materials.get(materialId);
       if (material) {
-        const { title, serializedCards } = material;
-        setCards(JSON.parse(serializedCards));
+        const { title, cards } = material;
+        setCards(cards);
         setTitle(title);
       } else {
         console.error("Material not found");
