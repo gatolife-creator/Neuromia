@@ -7,6 +7,7 @@ export interface CardData {
 export interface MaterialMetaData {
   id: string;
   title: string;
+  tags: string[];
   description: string;
 }
 

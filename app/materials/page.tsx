@@ -25,6 +25,7 @@ export default function MaterialsPage() {
             key={material.id}
             id={material.id}
             title={material.title}
+            tags={material.tags}
           />
         ))}
       </div>

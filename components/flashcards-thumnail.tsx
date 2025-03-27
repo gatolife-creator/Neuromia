@@ -9,12 +9,13 @@ import { Button } from "./ui/button";
 interface FlashcardsThumbnailProps {
   id: string;
   title: string;
+  tags: string[];
   className?: string;
 }
 
 export function FlashcardsThumbnail({ ...props }: FlashcardsThumbnailProps) {
   const router = useRouter();
-  const { id, title, className } = props;
+  const { id, title, tags, className } = props;
 
   const handleClickForLearning = () => {
     router.push(`/material/${id}`);
@@ -32,7 +33,19 @@ export function FlashcardsThumbnail({ ...props }: FlashcardsThumbnailProps) {
     >
       <Card className="w-full" onClick={handleClickForLearning}>
         <CardContent className="flex justify-between items-center">
-          <div className="font-bold inline-block">{title}</div>
+          <div className="font-bold inline-block">
+            {title}
+            {tags.map((tag, index) => {
+              return (
+                <span
+                  key={index}
+                  className="text-xs text-gray-400 bg-gray-200 rounded-full px-2 py-1 ml-1"
+                >
+                  #{tag}
+                </span>
+              );
+            })}
+          </div>
           <Button className="cursor-pointer" onClick={handleClickForEditing}>
             編集する
             <Edit />
