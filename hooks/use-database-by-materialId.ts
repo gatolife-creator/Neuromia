@@ -7,7 +7,13 @@ import { v4 as uuidv4 } from "uuid";
 export function useDatabaseByMaterialId(materialId: string) {
   const [tags, setTags] = useState<string[]>([]);
   const [cards, setCards] = useState<CardData[]>([]);
-  const [material, setMaterial] = useState<MaterialData>();
+  const [material, setMaterial] = useState<MaterialData>({
+    id: "",
+    title: "",
+    description: "",
+    tags: [],
+    cards: [],
+  });
 
   useEffect(() => {
     materialDB.materials

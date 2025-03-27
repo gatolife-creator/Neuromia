@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Flashcard } from "./flashcard";
 import { CardData } from "@/lib/interfaces";
 import { motion } from "framer-motion";
+import { fsrs, IPreview, Rating } from "ts-fsrs";
 
 interface FlashcardDeckProps {
   cards: CardData[];
@@ -17,6 +18,8 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { cards, title } = props;
   const [isFlipped, setIsFlipped] = useState(false);
+  const [repeatScenario, setRepeatScenario] = useState<IPreview>();
+  const f = fsrs({ enable_fuzz: true });
 
   const handleFlip = (state: boolean) => {
     setIsFlipped(state);
@@ -42,7 +45,11 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
 
   useEffect(() => {
     setIsFlipped(false);
-  }, [currentIndex]);
+    if (cards?.length) {
+      console.log(cards[currentIndex]);
+      setRepeatScenario(f.repeat<IPreview>(cards[currentIndex], new Date()));
+    }
+  }, [currentIndex, cards]);
 
   return (
     <div className="w-full mx-auto space-y-6">
@@ -126,6 +133,11 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
             disabled={!isFlipped}
           >
             もう1回
+            <small>
+              {repeatScenario &&
+                repeatScenario[Rating.Again].card.scheduled_days}
+              日後
+            </small>
           </Button>
           <Button
             className="cursor-pointer"
@@ -134,6 +146,11 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
             disabled={!isFlipped}
           >
             難しい
+            <small>
+              {repeatScenario &&
+                repeatScenario[Rating.Hard].card.scheduled_days}
+              日後
+            </small>
           </Button>
           <Button
             className="cursor-pointer"
@@ -142,6 +159,11 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
             disabled={!isFlipped}
           >
             できた
+            <small>
+              {repeatScenario &&
+                repeatScenario[Rating.Good].card.scheduled_days}
+              日後
+            </small>
           </Button>
           <Button
             className="cursor-pointer"
@@ -150,6 +172,11 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
             disabled={!isFlipped}
           >
             簡単
+            <small>
+              {repeatScenario &&
+                repeatScenario[Rating.Easy].card.scheduled_days}
+              日後
+            </small>
           </Button>
         </div>
       </div>
