@@ -50,5 +50,19 @@ export function useDatabase() {
       });
   };
 
-  return { getAllData, deleteAllData, getAllCards, getCardById, editCardById };
+  const getDueCards = (callback: (cards: CardDataWithMaterialId[]) => void) => {
+    getAllCards((cards) => {
+      const dueCards = cards.filter((card) => card.due <= new Date());
+      callback(dueCards);
+    });
+  };
+
+  return {
+    getAllData,
+    deleteAllData,
+    getAllCards,
+    getCardById,
+    editCardById,
+    getDueCards,
+  };
 }
