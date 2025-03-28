@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +17,15 @@ export function Header() {
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold">My App</span>
+            <Image
+              className="dark:invert"
+              src="/neuromia.svg"
+              alt="Next.js logo"
+              width={48}
+              height={48}
+              priority
+            />
+            {/* <span className="text-xl font-bold">Neuromia</span> */}
           </Link>
         </div>
         <div className="flex gap-2">

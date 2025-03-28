@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "My App",
-    short_name: "MyApp",
+    name: "Neuromia",
+    short_name: "Neuromia",
     description: "A Progressive Web App built with Next.js",
     start_url: "/",
     display: "standalone",

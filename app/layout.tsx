@@ -18,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>Neuromia</title>
+      </head>
       <body className="min-h-screen w-full">
         {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
         <SidebarProvider>
