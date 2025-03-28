@@ -1,5 +1,5 @@
 import { materialDB } from "@/lib/db";
-import { CardData, MaterialData } from "@/lib/interfaces";
+import { CardDataWithMaterialId, MaterialData } from "@/lib/interfaces";
 
 export function useDatabase() {
   const getAllData = (callback: (materials: MaterialData[]) => void) => {
@@ -11,10 +11,6 @@ export function useDatabase() {
   const deleteAllData = () => {
     materialDB.materials.clear();
   };
-
-  interface CardDataWithMaterialId extends CardData {
-    materialId: string;
-  }
 
   const getAllCards = (callback: (cards: CardDataWithMaterialId[]) => void) => {
     getAllData((materials) => {

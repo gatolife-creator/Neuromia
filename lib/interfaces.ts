@@ -6,6 +6,10 @@ export interface CardData extends Card {
   back: string;
 }
 
+export interface CardDataWithMaterialId extends CardData {
+  materialId: string;
+}
+
 export interface MaterialMetaData {
   id: string;
   title: string;
