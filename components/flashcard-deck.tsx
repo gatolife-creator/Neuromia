@@ -42,9 +42,11 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
     setCurrentIndex(0);
   };
 
-  const handleRating = (rating: Rating) => {
+  const handleRating = (
+    rating: Rating.Again | Rating.Hard | Rating.Good | Rating.Easy
+  ) => {
     if (repeatScenario) {
-      props.handleRating(currentIndex, repeatScenario[rating].card);
+      props.handleRating(currentIndex, repeatScenario[rating].card as CardData);
       handleNext();
     }
   };
