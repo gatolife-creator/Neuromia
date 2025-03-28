@@ -2,36 +2,39 @@
 
 import React, { useEffect, useState } from "react";
 import { FlashcardDeck } from "@/components/flashcard-deck";
+import { useDatabaseByMaterialId } from "@/hooks/use-database-by-materialId";
 import { CardData } from "@/lib/interfaces";
-import { materialDB } from "@/lib/db";
 
 export default function MaterialPage({
   params,
 }: {
   params: Promise<{ materialId: string }>;
 }) {
-  const [title, setTitle] = useState("");
-  const [cards, setCards] = useState<CardData[]>([
-    { id: "", front: "", back: "" },
-  ]);
+  const [materialId, setMaterialId] = useState("");
+  const { cards, material, editCardByIndex } =
+    useDatabaseByMaterialId(materialId);
+
+  const handleRating = (index: number, card: CardData) => {
+    console.log(card);
+    editCardByIndex(index, card);
+  };
+
   useEffect(() => {
     (async () => {
       const { materialId } = await params;
-
-      const material = await materialDB.materials.get(materialId);
-      if (material) {
-        const { title, cards } = material;
-        setCards(cards);
-        setTitle(title);
-      } else {
-        console.error("Material not found");
-      }
+      setMaterialId(materialId);
     })();
-  }, [params]);
+  });
 
   return (
     <div>
-      <FlashcardDeck cards={cards} title={title} />
+      {cards && (
+        <FlashcardDeck
+          cards={cards}
+          title={material.title}
+          handleRating={handleRating}
+        />
+      )}
     </div>
   );
 }

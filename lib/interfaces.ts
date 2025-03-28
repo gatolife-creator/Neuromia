@@ -1,4 +1,6 @@
-export interface CardData {
+import { Card } from "ts-fsrs";
+
+export interface CardData extends Card {
   id: string;
   front: string;
   back: string;

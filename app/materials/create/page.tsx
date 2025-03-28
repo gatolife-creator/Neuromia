@@ -8,7 +8,7 @@ import { EditingFlashcardForm } from "../../../components/editing-flashcard-form
 import { toast } from "sonner";
 import { CheckCircle, XOctagon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useDatabaseById } from "../../../hooks/use-database-by-id";
+import { useDatabaseByMaterialId } from "../../../hooks/use-database-by-materialId";
 
 export default function CreateMaterialPage() {
   const [materialId] = useState(uuidv4());
@@ -22,7 +22,7 @@ export default function CreateMaterialPage() {
     editBackSideOfCard,
     addCard,
     putMaterial,
-  } = useDatabaseById(materialId);
+  } = useDatabaseByMaterialId(materialId);
   const router = useRouter();
   const prevCardsLength = useRef(cards.length);
 
@@ -46,7 +46,7 @@ export default function CreateMaterialPage() {
 
     const formattedCards = cards
       .map((card) => ({
-        id: card.id,
+        ...card,
         front: card.front.trimEnd(),
         back: card.back.trimEnd(),
       }))

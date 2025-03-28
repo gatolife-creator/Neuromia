@@ -7,16 +7,20 @@ import { Progress } from "@/components/ui/progress";
 import { Flashcard } from "./flashcard";
 import { CardData } from "@/lib/interfaces";
 import { motion } from "framer-motion";
+import { fsrs, IPreview, Rating } from "ts-fsrs";
 
 interface FlashcardDeckProps {
   cards: CardData[];
   title: string;
+  handleRating: (index: number, card: CardData) => void;
 }
 
 export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { cards, title } = props;
   const [isFlipped, setIsFlipped] = useState(false);
+  const [repeatScenario, setRepeatScenario] = useState<IPreview>();
+  const f = fsrs({ enable_fuzz: true });
 
   const handleFlip = (state: boolean) => {
     setIsFlipped(state);
@@ -38,11 +42,23 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
     setCurrentIndex(0);
   };
 
+  const handleRating = (
+    rating: Rating.Again | Rating.Hard | Rating.Good | Rating.Easy
+  ) => {
+    if (repeatScenario) {
+      props.handleRating(currentIndex, repeatScenario[rating].card as CardData);
+      handleNext();
+    }
+  };
+
   const progress = ((currentIndex + 1) / cards.length) * 100;
 
   useEffect(() => {
     setIsFlipped(false);
-  }, [currentIndex]);
+    if (cards?.length) {
+      setRepeatScenario(f.repeat<IPreview>(cards[currentIndex], new Date()));
+    }
+  }, [currentIndex, cards]);
 
   return (
     <div className="w-full mx-auto space-y-6">
@@ -121,35 +137,55 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
           </Button>
           <Button
             className="cursor-pointer"
-            onClick={handleNext}
+            onClick={() => repeatScenario && handleRating(Rating.Again)}
             variant="destructive"
             disabled={!isFlipped}
           >
-            もう1回
+            <div>もう1回</div>
+            <small>
+              {repeatScenario &&
+                repeatScenario[Rating.Again].card.scheduled_days}
+              日後
+            </small>
           </Button>
           <Button
             className="cursor-pointer"
-            onClick={handleNext}
+            onClick={() => handleRating(Rating.Hard)}
             variant="warning"
             disabled={!isFlipped}
           >
             難しい
+            <small>
+              {repeatScenario &&
+                repeatScenario[Rating.Hard].card.scheduled_days}
+              日後
+            </small>
           </Button>
           <Button
             className="cursor-pointer"
-            onClick={handleNext}
+            onClick={() => handleRating(Rating.Good)}
             variant="success"
             disabled={!isFlipped}
           >
             できた
+            <small>
+              {repeatScenario &&
+                repeatScenario[Rating.Good].card.scheduled_days}
+              日後
+            </small>
           </Button>
           <Button
             className="cursor-pointer"
-            onClick={handleNext}
+            onClick={() => handleRating(Rating.Easy)}
             variant="easy"
             disabled={!isFlipped}
           >
             簡単
+            <small>
+              {repeatScenario &&
+                repeatScenario[Rating.Easy].card.scheduled_days}
+              日後
+            </small>
           </Button>
         </div>
       </div>

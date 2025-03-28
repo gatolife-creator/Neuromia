@@ -1,12 +1,19 @@
 import { materialDB } from "@/lib/db";
 import { CardData, MaterialData } from "@/lib/interfaces";
 import { useEffect, useState } from "react";
+import { createEmptyCard } from "ts-fsrs";
 import { v4 as uuidv4 } from "uuid";
 
-export function useDatabaseById(materialId: string) {
+export function useDatabaseByMaterialId(materialId: string) {
   const [tags, setTags] = useState<string[]>([]);
   const [cards, setCards] = useState<CardData[]>([]);
-  const [material, setMaterial] = useState<MaterialData>();
+  const [material, setMaterial] = useState<MaterialData>({
+    id: "",
+    title: "",
+    description: "",
+    tags: [],
+    cards: [],
+  });
 
   useEffect(() => {
     materialDB.materials
@@ -37,9 +44,19 @@ export function useDatabaseById(materialId: string) {
   };
 
   const addCard = () => {
-    setCards([...cards, { id: uuidv4(), front: "", back: "" }]);
+    const fsrsCard = createEmptyCard();
+    setCards([...cards, { ...fsrsCard, id: uuidv4(), front: "", back: "" }]);
   };
 
+  const editCardByIndex = (index: number, editedCard: CardData) => {
+    setCards((prevCards) =>
+      prevCards.map((card, i) => (i === index ? { ...editedCard } : card))
+    );
+
+    materialDB.materials.where("id").equals(materialId).modify({
+      cards: cards,
+    });
+  };
   const addTag = (tag: string) => {
     setTags([...tags, tag]);
   };
@@ -125,6 +142,7 @@ export function useDatabaseById(materialId: string) {
     setCards,
     editFrontSideOfCard,
     editBackSideOfCard,
+    editCardByIndex,
     addCard,
     addTag,
     removeTag,
