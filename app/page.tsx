@@ -1,9 +1,24 @@
+"use client";
+
 import Link from "next/link";
 import { Book } from "lucide-react";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageTitle } from "../components/page-title";
+import { useDatabase } from "@/hooks/use-database";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { getAllCards } = useDatabase();
+
+  useEffect(() => {
+    getAllCards((cards) => {
+      const dueCards = cards.filter((card) => {
+        return card.due <= new Date();
+      });
+      console.log(dueCards);
+    });
+  });
+
   return (
     <div>
       <PageTitle>ホーム</PageTitle>

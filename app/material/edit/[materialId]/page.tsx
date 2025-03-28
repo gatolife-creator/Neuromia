@@ -7,7 +7,7 @@ import { EditingFlashcardForm } from "../../../../components/editing-flashcard-f
 import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useDatabaseByMaterialId } from "@/hooks/use-database-by-materialId";
+import { useDatabaseByMaterialId } from "@/hooks/use-database-by-material-id";
 
 export default function EditMaterialPage({
   params,

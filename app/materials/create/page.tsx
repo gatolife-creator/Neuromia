@@ -8,7 +8,7 @@ import { EditingFlashcardForm } from "../../../components/editing-flashcard-form
 import { toast } from "sonner";
 import { CheckCircle, XOctagon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useDatabaseByMaterialId } from "../../../hooks/use-database-by-materialId";
+import { useDatabaseByMaterialId } from "../../../hooks/use-database-by-material-id";
 
 export default function CreateMaterialPage() {
   const [materialId] = useState(uuidv4());
