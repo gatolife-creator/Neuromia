@@ -48,6 +48,15 @@ export function useDatabaseByMaterialId(materialId: string) {
     setCards([...cards, { ...fsrsCard, id: uuidv4(), front: "", back: "" }]);
   };
 
+  const editCardByIndex = (index: number, editedCard: CardData) => {
+    setCards((prevCards) =>
+      prevCards.map((card, i) => (i === index ? { ...editedCard } : card))
+    );
+
+    materialDB.materials.where("id").equals(materialId).modify({
+      cards: cards,
+    });
+  };
   const addTag = (tag: string) => {
     setTags([...tags, tag]);
   };
@@ -133,6 +142,7 @@ export function useDatabaseByMaterialId(materialId: string) {
     setCards,
     editFrontSideOfCard,
     editBackSideOfCard,
+    editCardByIndex,
     addCard,
     addTag,
     removeTag,

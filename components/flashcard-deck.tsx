@@ -12,6 +12,7 @@ import { fsrs, IPreview, Rating } from "ts-fsrs";
 interface FlashcardDeckProps {
   cards: CardData[];
   title: string;
+  handleRating: (index: number, card: CardData) => void;
 }
 
 export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
@@ -41,12 +42,18 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
     setCurrentIndex(0);
   };
 
+  const handleRating = (rating: Rating) => {
+    if (repeatScenario) {
+      props.handleRating(currentIndex, repeatScenario[rating].card);
+      handleNext();
+    }
+  };
+
   const progress = ((currentIndex + 1) / cards.length) * 100;
 
   useEffect(() => {
     setIsFlipped(false);
     if (cards?.length) {
-      console.log(cards[currentIndex]);
       setRepeatScenario(f.repeat<IPreview>(cards[currentIndex], new Date()));
     }
   }, [currentIndex, cards]);
@@ -128,11 +135,11 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
           </Button>
           <Button
             className="cursor-pointer"
-            onClick={handleNext}
+            onClick={() => repeatScenario && handleRating(Rating.Again)}
             variant="destructive"
             disabled={!isFlipped}
           >
-            もう1回
+            <div>もう1回</div>
             <small>
               {repeatScenario &&
                 repeatScenario[Rating.Again].card.scheduled_days}
@@ -141,7 +148,7 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
           </Button>
           <Button
             className="cursor-pointer"
-            onClick={handleNext}
+            onClick={() => handleRating(Rating.Hard)}
             variant="warning"
             disabled={!isFlipped}
           >
@@ -154,7 +161,7 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
           </Button>
           <Button
             className="cursor-pointer"
-            onClick={handleNext}
+            onClick={() => handleRating(Rating.Good)}
             variant="success"
             disabled={!isFlipped}
           >
@@ -167,7 +174,7 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
           </Button>
           <Button
             className="cursor-pointer"
-            onClick={handleNext}
+            onClick={() => handleRating(Rating.Easy)}
             variant="easy"
             disabled={!isFlipped}
           >

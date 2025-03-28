@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { FlashcardDeck } from "@/components/flashcard-deck";
 import { useDatabaseByMaterialId } from "@/hooks/use-database-by-materialId";
+import { CardData } from "@/lib/interfaces";
 
 export default function MaterialPage({
   params,
@@ -10,7 +11,13 @@ export default function MaterialPage({
   params: Promise<{ materialId: string }>;
 }) {
   const [materialId, setMaterialId] = useState("");
-  const { cards, material } = useDatabaseByMaterialId(materialId);
+  const { cards, material, editCardByIndex } =
+    useDatabaseByMaterialId(materialId);
+
+  const handleRating = (index: number, card: CardData) => {
+    console.log(card);
+    editCardByIndex(index, card);
+  };
 
   useEffect(() => {
     (async () => {
@@ -20,6 +27,14 @@ export default function MaterialPage({
   });
 
   return (
-    <div>{cards && <FlashcardDeck cards={cards} title={material.title} />}</div>
+    <div>
+      {cards && (
+        <FlashcardDeck
+          cards={cards}
+          title={material.title}
+          handleRating={handleRating}
+        />
+      )}
+    </div>
   );
 }
