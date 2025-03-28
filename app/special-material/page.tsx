@@ -21,7 +21,7 @@ export default function SpecialMaterialPage() {
         title="忘却曲線に基づいた教材"
         cards={cards}
         handleRating={function (index: number, card: CardData): void {
-          throw new Error("Function not implemented.");
+          console.log(index, card);
         }}
       />
     </div>
