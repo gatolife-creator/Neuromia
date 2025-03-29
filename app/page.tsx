@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div>
       <PageTitle>ホーム</PageTitle>
-      <div className="grid-cols-3 gap-2 p-4 lg:grid">
+      <div className="grid-cols-3 gap-2 space-y-2 p-4 lg:grid">
         {dueCards.length > 0 && (
           <Link
             href="/special-material"
