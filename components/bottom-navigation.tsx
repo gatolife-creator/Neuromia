@@ -1,8 +1,14 @@
 import Link from "next/link";
 import { Book, Home, UserRound, Settings, PlusCircle } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 import { Button } from "./ui/button";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { useState } from "react";
 
 export function BottomNavigation() {
@@ -31,9 +37,11 @@ export function BottomNavigation() {
           <PlusCircle className="mx-auto h-8" fontSize="32px" />
           <div className="h-6 w-full text-center text-xs">追加</div>
         </SheetTrigger>
-        <SheetContent className="w-[400px] sm:w-[540px]" side="bottom">
-          <SheetHeader></SheetHeader>
-          <div className="mx-auto min-h-[100px] w-4/5 space-y-1">
+        <SheetContent className="p-4" side="bottom">
+          <VisuallyHidden.Root>
+            <SheetTitle>教材/グループ作成</SheetTitle>
+          </VisuallyHidden.Root>
+          <div className="mx-auto w-4/5 space-y-1">
             <Button
               className="w-full cursor-pointer"
               onClick={() => {
