@@ -77,14 +77,14 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                 );
               }
             })}
-            className="space-y-1 mx-auto"
+            className="mx-auto space-y-1"
           >
-            <div className="flex justify-between items-center p-4">
+            <div className="flex items-center justify-between p-4">
               <div className="text-2xl font-bold">
                 {props.type === "create" ? "新規作成" : "編集"}
               </div>
               <div>
-                <Button type="submit" className="cursor-pointer mx-1">
+                <Button type="submit" className="mx-1 cursor-pointer">
                   {props.type === "create" ? "作成" : "更新"}
                 </Button>
                 {props.type === "edit" && (
@@ -100,7 +100,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                   <AlertDialogTrigger asChild>
                     <Button
                       variant="destructive"
-                      className="cursor-pointer mx-1"
+                      className="mx-1 cursor-pointer"
                     >
                       {props.type === "create" ? "取り消す" : "削除"}
                     </Button>
@@ -120,7 +120,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                         キャンセル
                       </AlertDialogCancel>
                       <AlertDialogAction
-                        className="cursor-pointer bg-destructive hover:bg-destructive hover:opacity-80"
+                        className="bg-destructive hover:bg-destructive cursor-pointer hover:opacity-80"
                         onClick={onClickMaterialDelete}
                       >
                         {props.type === "create" ? "取り消す" : "削除"}
@@ -156,7 +156,7 @@ export function EditingFlashcardForm({ ...props }: EditingFlashcardFormProps) {
                     <Textarea
                       placeholder="説明文を入力してください"
                       {...field}
-                      className="bg-white resize-none"
+                      className="resize-none bg-white"
                       onChange={onChangeDescription}
                     />
                   </FormControl>

@@ -32,14 +32,14 @@ export function FlashcardsThumbnail({ ...props }: FlashcardsThumbnailProps) {
       whileTap={{ scale: 0.995 }}
     >
       <Card className="w-full" onClick={handleClickForLearning}>
-        <CardContent className="flex justify-between items-center">
-          <div className="font-bold inline-block">
+        <CardContent className="flex items-center justify-between">
+          <div className="inline-block font-bold">
             {title}
             {tags.map((tag, index) => {
               return (
                 <span
                   key={index}
-                  className="text-xs text-gray-400 bg-gray-200 rounded-full px-2 py-1 ml-1"
+                  className="ml-1 rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-400"
                 >
                   #{tag}
                 </span>

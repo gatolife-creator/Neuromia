@@ -45,7 +45,7 @@ export function TagInput({ ...props }: TagInputProps) {
 
   return (
     <div
-      className={`dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" ${
+      className={`dark:bg-input/30 border-input md:text-sm" flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 ${
         className && className
       } ${isFocused && "border-ring ring-ring/50 ring-[3px]"}`}
     >
@@ -56,7 +56,7 @@ export function TagInput({ ...props }: TagInputProps) {
               <motion.div
                 layout
                 key={tag}
-                className="flex items-center justify-between bg-black text-white px-2 mx-1 rounded-full"
+                className="mx-1 flex items-center justify-between rounded-full bg-black px-2 text-white"
                 initial={{ opacity: 1, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 1, scale: 0.9 }}
@@ -64,10 +64,10 @@ export function TagInput({ ...props }: TagInputProps) {
               >
                 <Button
                   size="icon"
-                  className="w-4 h-4 my-auto mr-1"
+                  className="my-auto mr-1 h-4 w-4"
                   onClick={() => onRemoveTagByIndex(index)}
                 >
-                  <X size={5} className="inline-block my-auto" />
+                  <X size={5} className="my-auto inline-block" />
                 </Button>
                 <div>{tag}</div>
               </motion.div>
@@ -78,7 +78,7 @@ export function TagInput({ ...props }: TagInputProps) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="inline-block flex-grow-1 my-auto"
+          className="my-auto inline-block flex-grow-1"
         >
           <FormField
             control={form.control}
@@ -89,7 +89,7 @@ export function TagInput({ ...props }: TagInputProps) {
                   <input
                     placeholder="タグを入力してください"
                     {...field}
-                    className="bg-white placeholder:text-muted-foreground focus:outline-0 md:text-sm"
+                    className="placeholder:text-muted-foreground bg-white focus:outline-0 md:text-sm"
                     onKeyDown={onKeyDown}
                     onFocus={onFocus}
                     onBlur={onBlur}

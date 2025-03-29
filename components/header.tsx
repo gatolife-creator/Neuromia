@@ -13,7 +13,7 @@ import { Plus } from "lucide-react";
 
 export function Header() {
   return (
-    <header className="fixed top-0 z-40 w-full border-b bg-background">
+    <header className="bg-background fixed top-0 z-40 w-full border-b">
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
@@ -31,7 +31,7 @@ export function Header() {
         <div className="flex gap-2">
           <ThemeToggle />
           <DropdownMenu>
-            <DropdownMenuTrigger className="cursor-pointer w-[32px] h-[32px] bg-black rounded-sm">
+            <DropdownMenuTrigger className="h-[32px] w-[32px] cursor-pointer rounded-sm bg-black">
               <Plus
                 color="white"
                 width={"80%"}

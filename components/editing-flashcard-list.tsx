@@ -29,7 +29,7 @@ export function EditingFlashcardList({ ...props }: EditingFlashcardListProps) {
   return (
     <div className="h-fit p-4">
       <AnimatePresence mode="wait">
-        <motion.div className="overflow-hidden min-h-[calc(100vh-232px)] h-full">
+        <motion.div className="h-full min-h-[calc(100vh-232px)] overflow-hidden">
           {cards.map((card, index) => (
             <motion.div
               layout

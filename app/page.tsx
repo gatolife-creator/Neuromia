@@ -22,14 +22,14 @@ export default function Home() {
   return (
     <div>
       <PageTitle>ホーム</PageTitle>
-      <div className="lg:grid grid-cols-3 gap-2 p-4">
+      <div className="grid-cols-3 gap-2 p-4 lg:grid">
         <Link
           href="/special-material"
           className="block w-full max-w-sm transition-transform"
         >
-          <Card className="w-full overflow-hidden cursor-pointer pt-0">
-            <div className="flex items-center justify-center w-full h-48 bg-muted">
-              <Book className="w-16 h-16 text-muted-foreground" />
+          <Card className="w-full cursor-pointer overflow-hidden pt-0">
+            <div className="bg-muted flex h-48 w-full items-center justify-center">
+              <Book className="text-muted-foreground h-16 w-16" />
             </div>
             <CardHeader>
               <CardTitle>忘却曲線に基づいた教材</CardTitle>
@@ -40,9 +40,9 @@ export default function Home() {
           href="/materials"
           className="block w-full max-w-sm transition-transform"
         >
-          <Card className="w-full overflow-hidden cursor-pointer pt-0">
-            <div className="flex items-center justify-center w-full h-48 bg-muted">
-              <Book className="w-16 h-16 text-muted-foreground" />
+          <Card className="w-full cursor-pointer overflow-hidden pt-0">
+            <div className="bg-muted flex h-48 w-full items-center justify-center">
+              <Book className="text-muted-foreground h-16 w-16" />
             </div>
             <CardHeader>
               <CardTitle>教材一覧</CardTitle>

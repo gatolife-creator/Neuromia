@@ -21,14 +21,14 @@ export default function Settings() {
   return (
     <div>
       <PageTitle>設定</PageTitle>
-      <div className="p-4 space-y-5">
+      <div className="space-y-5 p-4">
         <div className="flex">
           リマインダー
           <Toggle />
         </div>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive" className="cursor-pointer mx-1">
+            <Button variant="destructive" className="mx-1 cursor-pointer">
               初期化
             </Button>
           </AlertDialogTrigger>
@@ -44,7 +44,7 @@ export default function Settings() {
                 キャンセル
               </AlertDialogCancel>
               <AlertDialogAction
-                className="cursor-pointer bg-destructive hover:bg-destructive hover:opacity-80"
+                className="bg-destructive hover:bg-destructive cursor-pointer hover:opacity-80"
                 onClick={deleteAllData}
               >
                 初期化する

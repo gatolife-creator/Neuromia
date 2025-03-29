@@ -24,12 +24,12 @@ export default function RootLayout({
       <body className="min-h-screen w-full">
         {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
         <SidebarProvider>
-          <div className="flex min-h-screen flex-col w-full">
+          <div className="flex min-h-screen w-full flex-col">
             <Header />
             <div className="flex flex-1">
               <AppSidebar />
               <motion.main
-                className="flex-1 mt-16 mb-14"
+                className="mt-16 mb-14 flex-1"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ ease: "easeInOut", duration: 0.75 }}

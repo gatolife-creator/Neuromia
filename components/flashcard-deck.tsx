@@ -63,20 +63,20 @@ export function FlashcardDeck<T extends CardData>({
   }, [currentIndex, cards]);
 
   return (
-    <div className="w-full mx-auto space-y-6">
+    <div className="mx-auto w-full space-y-6">
       {title && (
-        <h2 className="text-2xl font-bold text-center bg-[#FAFAFA] w-full leading-16">
+        <h2 className="w-full bg-[#FAFAFA] text-center text-2xl leading-16 font-bold">
           {title}
         </h2>
       )}
 
-      <div className="w-full max-w-2xl mx-auto p-2">
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-sm text-muted-foreground">
+      <div className="mx-auto w-full max-w-2xl p-2">
+        <div className="mb-4 flex items-center justify-between">
+          <span className="text-muted-foreground text-sm">
             {currentIndex + 1} / {cards.length}
           </span>
           <Button variant="outline" size="sm" onClick={handleReset}>
-            <RotateCcw className="h-4 w-4 mr-2" />
+            <RotateCcw className="mr-2 h-4 w-4" />
             リセット
           </Button>
         </div>
@@ -135,11 +135,11 @@ export function FlashcardDeck<T extends CardData>({
             onClick={handlePrevious}
             disabled={currentIndex === 0}
           >
-            <ChevronLeft className="h-4 w-4 mr-3" />
+            <ChevronLeft className="mr-3 h-4 w-4" />
             戻る
           </Button>
           <Button
-            className="block cursor-pointer h-12"
+            className="block h-12 cursor-pointer"
             onClick={() => repeatScenario && handleRating(Rating.Again)}
             variant="destructive"
             disabled={!isFlipped}
@@ -152,7 +152,7 @@ export function FlashcardDeck<T extends CardData>({
             </small>
           </Button>
           <Button
-            className="block cursor-pointer h-12"
+            className="block h-12 cursor-pointer"
             onClick={() => handleRating(Rating.Hard)}
             variant="warning"
             disabled={!isFlipped}
@@ -165,7 +165,7 @@ export function FlashcardDeck<T extends CardData>({
             </small>
           </Button>
           <Button
-            className="block cursor-pointer h-12"
+            className="block h-12 cursor-pointer"
             onClick={() => handleRating(Rating.Good)}
             variant="success"
             disabled={!isFlipped}
@@ -178,7 +178,7 @@ export function FlashcardDeck<T extends CardData>({
             </small>
           </Button>
           <Button
-            className="block cursor-pointer h-12"
+            className="block h-12 cursor-pointer"
             onClick={() => handleRating(Rating.Easy)}
             variant="easy"
             disabled={!isFlipped}

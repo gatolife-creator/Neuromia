@@ -4,7 +4,7 @@ interface PageTitleProps {
 
 export function PageTitle({ children }: PageTitleProps) {
   return (
-    <h2 className="text-2xl font-bold text-center bg-[#FAFAFA] w-full leading-16">
+    <h2 className="w-full bg-[#FAFAFA] text-center text-2xl leading-16 font-bold">
       {children}
     </h2>
   );

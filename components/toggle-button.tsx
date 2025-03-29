@@ -37,9 +37,9 @@ export function Toggle({
         disabled={disabled}
         onClick={handleToggle}
         className={cn(
-          "relative h-6 w-11 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer",
+          "focus-visible:ring-ring relative h-6 w-11 cursor-pointer rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none",
           isChecked ? "bg-black" : "bg-gray-300",
-          disabled && "opacity-50 cursor-not-allowed"
+          disabled && "cursor-not-allowed opacity-50"
         )}
       >
         <motion.div

@@ -38,7 +38,7 @@ const navigationItems = [
 export function AppSidebar() {
   return (
     <Sidebar className="border-r">
-      <SidebarContent className="sm:block hidden">
+      <SidebarContent className="hidden sm:block">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>

@@ -26,12 +26,12 @@ export function EditingFlashcard({ ...props }: EditingFlashcardProps) {
   };
 
   return (
-    <Card className="w-full my-5">
+    <Card className="my-5 w-full">
       <CardHeader>
         <CardTitle className="flex justify-between">
           <div>{index}</div>
           <Button
-            className="cursor-pointer mx-1"
+            className="mx-1 cursor-pointer"
             size="icon"
             variant="destructive"
             onClick={() => {
@@ -43,7 +43,7 @@ export function EditingFlashcard({ ...props }: EditingFlashcardProps) {
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="grid lg:grid-cols-2 gap-4">
+      <CardContent className="grid gap-4 lg:grid-cols-2">
         <Textarea
           className="w-full resize-none"
           placeholder="問題文を入力してください"

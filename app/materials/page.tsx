@@ -18,7 +18,7 @@ export default function MaterialsPage() {
   return (
     <div>
       <PageTitle>教材一覧</PageTitle>
-      <div className="container mx-auto p-6 my-5">
+      <div className="container mx-auto my-5 p-6">
         {materials.map((material) => (
           <FlashcardsThumbnail
             className="my-5"
