@@ -36,17 +36,23 @@ export function useDatabase() {
     });
   };
 
-  const editCardById = (materialId: string, cardId: string) => {
+  const editCard = async (
+    card: CardDataWithMaterialId,
+    callback: () => void
+  ) => {
     materialDB.materials
       .where("id")
-      .equals(materialId)
-      .modify((material) => {
-        material.cards = material.cards.map((card) => {
-          if (card.id === cardId) {
-            return card;
+      .equals(card.materialId)
+      .modify((material, ref) => {
+        ref.value.cards = material.cards.map((c) => {
+          if (c.id === card.id) {
+            return { ...c, ...card };
           }
-          return card;
+          return c;
         });
+      })
+      .then(() => {
+        callback();
       });
   };
 
@@ -62,7 +68,7 @@ export function useDatabase() {
     deleteAllData,
     getAllCards,
     getCardById,
-    editCardById,
+    editCard,
     getDueCards,
   };
 }

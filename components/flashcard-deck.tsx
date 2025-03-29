@@ -9,13 +9,15 @@ import { CardData } from "@/lib/interfaces";
 import { motion } from "framer-motion";
 import { fsrs, IPreview, Rating } from "ts-fsrs";
 
-interface FlashcardDeckProps {
-  cards: CardData[];
+interface FlashcardDeckProps<T extends CardData> {
+  cards: T[];
   title: string;
-  handleRating: (index: number, card: CardData) => void;
+  handleRating: (index: number, card: T) => void;
 }
 
-export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
+export function FlashcardDeck<T extends CardData>({
+  ...props
+}: FlashcardDeckProps<T>) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { cards, title } = props;
   const [isFlipped, setIsFlipped] = useState(false);
@@ -46,7 +48,7 @@ export function FlashcardDeck({ ...props }: FlashcardDeckProps) {
     rating: Rating.Again | Rating.Hard | Rating.Good | Rating.Easy
   ) => {
     if (repeatScenario) {
-      props.handleRating(currentIndex, repeatScenario[rating].card as CardData);
+      props.handleRating(currentIndex, repeatScenario[rating].card as T);
       handleNext();
     }
   };

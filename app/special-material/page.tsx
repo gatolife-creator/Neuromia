@@ -3,10 +3,10 @@
 import { useDatabase } from "@/hooks/use-database";
 import { useEffect, useState } from "react";
 import { FlashcardDeck } from "../../components/flashcard-deck";
-import { CardData, CardDataWithMaterialId } from "@/lib/interfaces";
+import { CardDataWithMaterialId } from "@/lib/interfaces";
 
 export default function SpecialMaterialPage() {
-  const { getDueCards } = useDatabase();
+  const { getDueCards, editCard } = useDatabase();
   const [cards, setCards] = useState<CardDataWithMaterialId[]>([]);
 
   useEffect(() => {
@@ -17,11 +17,15 @@ export default function SpecialMaterialPage() {
 
   return (
     <div>
-      <FlashcardDeck
+      <FlashcardDeck<CardDataWithMaterialId>
         title="忘却曲線に基づいた教材"
         cards={cards}
-        handleRating={function (index: number, card: CardData): void {
-          console.log(index, card);
+        handleRating={(_, card) => {
+          editCard(card, () => {
+            setCards((prevCards) =>
+              prevCards.map((c) => (c.id === card.id ? card : c))
+            );
+          });
         }}
       />
     </div>
