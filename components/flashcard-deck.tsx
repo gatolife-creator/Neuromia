@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronLeft, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Flashcard } from "./flashcard";
 import { CardData } from "@/lib/interfaces";
 import { motion } from "framer-motion";
 import { fsrs, IPreview, Rating } from "ts-fsrs";
+import { useRouter } from "next/navigation";
 
 interface FlashcardDeckProps<T extends CardData> {
   cards: T[];
@@ -19,10 +20,12 @@ export function FlashcardDeck<T extends CardData>({
   ...props
 }: FlashcardDeckProps<T>) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAlldone, setIsAllDone] = useState(false);
   const { cards, title } = props;
   const [isFlipped, setIsFlipped] = useState(false);
   const [repeatScenario, setRepeatScenario] = useState<IPreview>();
   const f = fsrs({ enable_fuzz: true });
+  const router = useRouter();
 
   const handleFlip = (state: boolean) => {
     setIsFlipped(state);
@@ -31,12 +34,8 @@ export function FlashcardDeck<T extends CardData>({
   const handleNext = () => {
     if (currentIndex < cards.length - 1) {
       setCurrentIndex(currentIndex + 1);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+    } else {
+      setIsAllDone(true);
     }
   };
 
@@ -61,6 +60,22 @@ export function FlashcardDeck<T extends CardData>({
       setRepeatScenario(f.repeat<IPreview>(cards[currentIndex], new Date()));
     }
   }, [currentIndex, cards]);
+
+  if (isAlldone) {
+    return (
+      <div className="mx-auto w-full space-y-6">
+        <h2 className="w-full bg-[#FAFAFA] text-center text-2xl leading-16 font-bold">
+          お疲れ様でした！全てのカードを学習しました。
+        </h2>
+        <Button
+          className="cursor-pointer"
+          onClick={() => router.push("/materials")}
+        >
+          教材一覧に戻る
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto w-full space-y-6">
@@ -128,16 +143,7 @@ export function FlashcardDeck<T extends CardData>({
           )}
         </motion.div>
 
-        <div className="grid grid-cols-5 gap-1">
-          <Button
-            className="h-12"
-            variant="outline"
-            onClick={handlePrevious}
-            disabled={currentIndex === 0}
-          >
-            <ChevronLeft className="mr-3 h-4 w-4" />
-            戻る
-          </Button>
+        <div className="grid grid-cols-4 gap-1">
           <Button
             className="block h-12 cursor-pointer"
             onClick={() => repeatScenario && handleRating(Rating.Again)}
