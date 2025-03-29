@@ -10,8 +10,14 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Plus } from "lucide-react";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
   return (
     <header className="bg-background fixed top-0 z-40 w-full border-b">
       <div className="flex h-16 items-center justify-between px-4">
@@ -30,7 +36,7 @@ export function Header() {
         </div>
         <div className="flex gap-2">
           <ThemeToggle />
-          <DropdownMenu>
+          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger className="h-[32px] w-[32px] cursor-pointer rounded-sm bg-black">
               <Plus
                 color="white"
@@ -41,9 +47,27 @@ export function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>
-                <Link href={"/materials/create"}>新しい学習リストを作成</Link>
+                <Button
+                  className="w-full cursor-pointer"
+                  onClick={() => {
+                    router.push("/materials/create");
+                    setIsOpen(false);
+                  }}
+                >
+                  新しい教材を作成
+                </Button>
               </DropdownMenuItem>
-              <DropdownMenuItem>新しグループを作成</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button
+                  className="w-full cursor-pointer"
+                  onClick={() => {
+                    router.push("#");
+                    setIsOpen(false);
+                  }}
+                >
+                  新しグループを作成
+                </Button>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <Avatar>
