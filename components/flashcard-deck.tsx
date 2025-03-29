@@ -9,6 +9,7 @@ import { CardData } from "@/lib/interfaces";
 import { motion } from "framer-motion";
 import { fsrs, IPreview, Rating } from "ts-fsrs";
 import { useRouter } from "next/navigation";
+import { milisecToTime } from "@/lib/utils";
 
 interface FlashcardDeckProps<T extends CardData> {
   cards: T[];
@@ -21,6 +22,7 @@ export function FlashcardDeck<T extends CardData>({
 }: FlashcardDeckProps<T>) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAlldone, setIsAllDone] = useState(false);
+  const [now] = useState(new Date().getTime());
   const { cards, title } = props;
   const [isFlipped, setIsFlipped] = useState(false);
   const [repeatScenario, setRepeatScenario] = useState<IPreview>();
@@ -153,8 +155,9 @@ export function FlashcardDeck<T extends CardData>({
             <div className="w-full">もう1回</div>
             <small className="w-full">
               {repeatScenario &&
-                repeatScenario[Rating.Again].card.scheduled_days}
-              日後
+                milisecToTime(
+                  repeatScenario[Rating.Again].card.due.getTime() - now
+                )}
             </small>
           </Button>
           <Button
@@ -166,8 +169,9 @@ export function FlashcardDeck<T extends CardData>({
             <div className="w-full">難しい</div>
             <small className="w-full">
               {repeatScenario &&
-                repeatScenario[Rating.Hard].card.scheduled_days}
-              日後
+                milisecToTime(
+                  repeatScenario[Rating.Hard].card.due.getTime() - now
+                )}
             </small>
           </Button>
           <Button
@@ -179,8 +183,9 @@ export function FlashcardDeck<T extends CardData>({
             <div className="w-full">できた</div>
             <small className="w-full">
               {repeatScenario &&
-                repeatScenario[Rating.Good].card.scheduled_days}
-              日後
+                milisecToTime(
+                  repeatScenario[Rating.Good].card.due.getTime() - now
+                )}
             </small>
           </Button>
           <Button
@@ -192,8 +197,9 @@ export function FlashcardDeck<T extends CardData>({
             <div className="w-full">簡単</div>
             <small className="w-full">
               {repeatScenario &&
-                repeatScenario[Rating.Easy].card.scheduled_days}
-              日後
+                milisecToTime(
+                  repeatScenario[Rating.Easy].card.due.getTime() - now
+                )}
             </small>
           </Button>
         </div>
