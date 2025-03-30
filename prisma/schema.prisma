@@ -33,6 +33,7 @@ model Card {
   reps           Int
   lapses         Int
   state          State
+  clerkUserId String  // ClerkのユーザーIDで管理
 
   @@map("cards") // Database table name
 }
@@ -43,6 +44,7 @@ model Material {
   description String
   tags        String[] // タグのリスト
   cards       Card[]
+  clerkUserId String  // ClerkのユーザーIDで管理
 
   @@map("materials")
 }
