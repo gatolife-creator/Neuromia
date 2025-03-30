@@ -16,7 +16,7 @@ const navigationItems = [
   {
     title: "ホーム",
     icon: Home,
-    href: "/",
+    href: "/home",
   },
   {
     title: "教材一覧",

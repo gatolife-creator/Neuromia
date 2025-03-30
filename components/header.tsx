@@ -8,11 +8,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +28,7 @@ export function Header() {
     <header className="bg-background fixed top-0 z-40 w-full border-b">
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/home" className="flex items-center gap-2">
             <Image
               className="dark:invert"
               src="/neuromia.svg"
@@ -70,10 +76,19 @@ export function Header() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Avatar>
+          <div>
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
+          {/* <Avatar>
             <AvatarImage src="#" />
             <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          </Avatar> */}
         </div>
       </div>
     </header>

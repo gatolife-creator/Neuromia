@@ -19,7 +19,7 @@ export function BottomNavigation() {
   return (
     <div className="fixed right-0 bottom-0 grid h-14 w-full grid-cols-5 gap-3 border-t bg-white sm:hidden">
       <Link
-        href="/"
+        href="/home"
         className={`rounded-md ${pathname === "/" ? "bg-muted" : "bg-white"}`}
       >
         <Home className="mx-auto h-8" fontSize="32px" />
