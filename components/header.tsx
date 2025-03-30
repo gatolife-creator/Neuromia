@@ -32,9 +32,9 @@ export function Header() {
             <Image
               className="dark:invert"
               src="/neuromia.svg"
-              alt="Next.js logo"
-              width={48}
-              height={48}
+              alt="Neuromia Logo"
+              width={36}
+              height={36}
               priority
             />
             {/* <span className="text-xl font-bold">Neuromia</span> */}

@@ -1,8 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
-  Brain,
   CheckCircle,
   Clock,
   LineChart,
@@ -14,7 +14,13 @@ export default function LandingPage() {
     <div className="flex min-h-screen flex-col">
       <header className="flex h-14 items-center px-4 lg:px-6">
         <Link className="flex items-center justify-center" href="#">
-          <Brain className="text-primary h-6 w-6" />
+          <Image
+            src="/neuromia.svg"
+            alt="Neuromia Logo"
+            width={36}
+            height={36}
+            priority
+          />
           <span className="ml-2 text-xl font-bold">Neuromia</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
@@ -50,7 +56,7 @@ export default function LandingPage() {
                     <span className="text-primary">効率的な学習体験</span>
                   </h1>
                   <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                    Neuromiaは、科学的に実証された忘却曲線に基づいて、あなたの記憶を最適化するフラッシュカードアプリです。
+                    Neuromiaは、統計的に導き出された最適な学習間隔に基づいて、あなたの記憶を強化するフラッシュカードアプリです。
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -161,7 +167,7 @@ export default function LandingPage() {
                   最適な間隔で復習することで、記憶の定着率を高めます。
                 </p>
               </div>
-              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
+              {/* <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
                 <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full">
                   <CheckCircle className="h-6 w-6" />
                 </div>
@@ -169,8 +175,8 @@ export default function LandingPage() {
                 <p className="text-center text-gray-500 dark:text-gray-400">
                   あなたの学習パターンをAIが分析し、効率的な学習方法を提案します。
                 </p>
-              </div>
-              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
+              </div> */}
+              {/* <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
                 <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full">
                   <CheckCircle className="h-6 w-6" />
                 </div>
@@ -178,7 +184,7 @@ export default function LandingPage() {
                 <p className="text-center text-gray-500 dark:text-gray-400">
                   テキスト、画像、音声など、様々な形式のフラッシュカードに対応しています。
                 </p>
-              </div>
+              </div> */}
               <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
                 <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full">
                   <CheckCircle className="h-6 w-6" />
@@ -197,7 +203,7 @@ export default function LandingPage() {
                   インターネット接続がなくても、いつでも学習を継続できます。
                 </p>
               </div>
-              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
+              {/* <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
                 <div className="bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full">
                   <CheckCircle className="h-6 w-6" />
                 </div>
@@ -205,7 +211,7 @@ export default function LandingPage() {
                 <p className="text-center text-gray-500 dark:text-gray-400">
                   複数のデバイス間でデータを同期し、シームレスな学習体験を提供します。
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
