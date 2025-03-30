@@ -53,14 +53,14 @@ export function Flashcard({
         {/* Front of card */}
         <div className="bg-card absolute flex h-full w-full items-center justify-center rounded-xl border p-6 shadow-md backface-hidden">
           <div className="text-center">
-            <p className="text-xl font-medium">{front}</p>
+            <p className="text-2xl font-medium">{front}</p>
           </div>
         </div>
 
         {/* Back of card */}
         <div className="bg-card absolute flex h-full w-full [transform:rotateX(180deg)] items-center justify-center rounded-xl border p-6 shadow-md backface-hidden">
           <div className="text-center">
-            <p className="text-xl font-medium">{back}</p>
+            <p className="text-2xl font-medium">{back}</p>
           </div>
         </div>
       </motion.div>
