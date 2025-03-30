@@ -12,6 +12,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { BottomNavigation } from "../components/bottom-navigation";
 
 import { ClerkProvider } from "@clerk/nextjs";
+import { jaJP } from "@clerk/localizations";
 
 export default function RootLayout({
   children,
@@ -19,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={jaJP}>
       <html lang="en">
         <head>
           <title>Neuromia</title>
