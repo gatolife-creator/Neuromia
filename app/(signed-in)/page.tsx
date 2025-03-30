@@ -1,16 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { Book } from "lucide-react";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { PageTitle } from "@/components/page-title";
 import { useDatabase } from "@/hooks/use-database";
 import { useEffect, useState } from "react";
 import { CardDataWithMaterialId } from "@/lib/interfaces";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { getAllCards } = useDatabase();
   const [dueCards, setDueCards] = useState<CardDataWithMaterialId[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     getAllCards((cards) => {
@@ -26,33 +27,32 @@ export default function Home() {
       <PageTitle>ホーム</PageTitle>
       <div className="grid-cols-3 gap-2 space-y-2 p-4 lg:grid">
         {dueCards.length > 0 && (
-          <Link
-            href="/special-material"
-            className="block w-full max-w-sm transition-transform"
+          <motion.div
+            className={`relative cursor-pointer`}
+            whileTap={{ scale: 0.995 }}
           >
-            <Card className="w-full cursor-pointer overflow-hidden pt-0">
-              <div className="bg-muted flex h-48 w-full items-center justify-center">
-                <Book className="text-muted-foreground h-16 w-16" />
-              </div>
-              <CardHeader>
-                <CardTitle>忘却曲線に基づいた教材</CardTitle>
-              </CardHeader>
+            <Card
+              className="w-full"
+              onClick={() => router.push("/special-material")}
+            >
+              <CardContent className="flex items-center justify-between">
+                <div className="inline-block font-bold">
+                  忘却曲線に基づいた教材
+                </div>
+              </CardContent>
             </Card>
-          </Link>
+          </motion.div>
         )}
-        <Link
-          href="/materials"
-          className="block w-full max-w-sm transition-transform"
+        <motion.div
+          className={`relative cursor-pointer`}
+          whileTap={{ scale: 0.995 }}
         >
-          <Card className="w-full cursor-pointer overflow-hidden pt-0">
-            <div className="bg-muted flex h-48 w-full items-center justify-center">
-              <Book className="text-muted-foreground h-16 w-16" />
-            </div>
-            <CardHeader>
-              <CardTitle>教材一覧</CardTitle>
-            </CardHeader>
+          <Card className="w-full" onClick={() => router.push("/materials")}>
+            <CardContent className="flex items-center justify-between">
+              <div className="inline-block font-bold">教材一覧</div>
+            </CardContent>
           </Card>
-        </Link>
+        </motion.div>
       </div>
     </div>
   );
