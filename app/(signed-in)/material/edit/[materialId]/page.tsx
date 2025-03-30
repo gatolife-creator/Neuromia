@@ -3,7 +3,7 @@
 import { EditingFlashcardList } from "@/components/editing-flashcard-list";
 import { MaterialData } from "@/lib/interfaces";
 import React, { useEffect, useRef, useState } from "react";
-import { EditingFlashcardForm } from "../../../../components/editing-flashcard-form";
+import { EditingFlashcardForm } from "@/components/editing-flashcard-form";
 import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";

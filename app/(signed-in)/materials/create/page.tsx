@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { EditingFlashcardList } from "../../../components/editing-flashcard-list";
+import { EditingFlashcardList } from "@/components/editing-flashcard-list";
 import { MaterialMetaData } from "@/lib/interfaces";
 import { v4 as uuidv4 } from "uuid";
-import { EditingFlashcardForm } from "../../../components/editing-flashcard-form";
+import { EditingFlashcardForm } from "@/components/editing-flashcard-form";
 import { toast } from "sonner";
 import { CheckCircle, XOctagon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useDatabaseByMaterialId } from "../../../hooks/use-database-by-material-id";
+import { useDatabaseByMaterialId } from "@/hooks/use-database-by-material-id";
 
 export default function CreateMaterialPage() {
   const [materialId] = useState(uuidv4());

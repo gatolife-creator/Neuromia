@@ -6,10 +6,10 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { Header } from "@/components/header";
 // import { ThemeProvider } from "@/components/theme-provider";
 
-import "./globals.css";
+import "@/app/globals.css";
 import { motion } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
-import { BottomNavigation } from "../components/bottom-navigation";
+import { BottomNavigation } from "@/components/bottom-navigation";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import { jaJP } from "@clerk/localizations";
@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider localization={jaJP}>
-      <html lang="en">
+      <html lang="ja">
         <head>
           <title>Neuromia</title>
         </head>

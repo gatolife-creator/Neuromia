@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Book } from "lucide-react";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { PageTitle } from "../components/page-title";
+import { PageTitle } from "@/components/page-title";
 import { useDatabase } from "@/hooks/use-database";
 import { useEffect, useState } from "react";
 import { CardDataWithMaterialId } from "@/lib/interfaces";

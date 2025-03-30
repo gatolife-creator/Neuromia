@@ -1,7 +1,7 @@
 "use client";
 
 import { PageTitle } from "@/components/page-title";
-import { Toggle } from "../../components/toggle-button";
+import { Toggle } from "@/components/toggle-button";
 import {
   AlertDialogHeader,
   AlertDialogFooter,

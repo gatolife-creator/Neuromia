@@ -2,7 +2,7 @@
 
 import { useDatabase } from "@/hooks/use-database";
 import { useEffect, useState } from "react";
-import { FlashcardDeck } from "../../components/flashcard-deck";
+import { FlashcardDeck } from "@/components/flashcard-deck";
 import { CardDataWithMaterialId } from "@/lib/interfaces";
 
 export default function SpecialMaterialPage() {
