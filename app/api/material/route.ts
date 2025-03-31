@@ -39,3 +39,35 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const { id } = await request.json();
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    await prisma.card.deleteMany({
+      where: { materialId: id },
+    });
+    
+    // Delete material and its associated cards
+    await prisma.material.delete({
+      where: { id },
+    });
+
+    
+
+    return NextResponse.json({ status: 200 });
+  } catch (error) {
+    console.error("Error deleting material:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}

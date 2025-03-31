@@ -22,5 +22,5 @@ export interface MaterialData {
   title: string;
   description: string;
   tags: string[];
-  cards: CardData[];
+  cards: CardDataWithMaterialId[];
 }
