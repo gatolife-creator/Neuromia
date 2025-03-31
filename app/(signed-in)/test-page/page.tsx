@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function TestPage() {
-  const [data, setData] = useState(null);
+  const [, setData] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
