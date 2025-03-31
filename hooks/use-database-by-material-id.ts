@@ -98,7 +98,7 @@ export function useDatabaseByMaterialId(materialId: string) {
           .map((card) => ({ ...card, materialId })),
       })
       .then(() => {
-        fetch("http://localhost:3000/api/material", {
+        fetch("/api/material", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -149,7 +149,7 @@ export function useDatabaseByMaterialId(materialId: string) {
         ),
       })
       .then(() => {
-        fetch("http://localhost:3000/api/material", {
+        fetch("/api/material", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -189,7 +189,7 @@ export function useDatabaseByMaterialId(materialId: string) {
       .delete()
       .then(() => {
         console.log("Material deletion on supabase in progress");
-        fetch("http://localhost:3000/api/material", {
+        fetch("/api/material", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

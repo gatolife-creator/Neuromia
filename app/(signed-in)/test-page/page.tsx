@@ -7,7 +7,7 @@ export default function TestPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:3000/api/materials", {
+      const response = await fetch("/api/materials", {
         cache: "no-store",
         headers: {
           Accept: "application/json",
