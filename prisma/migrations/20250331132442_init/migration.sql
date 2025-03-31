@@ -1,6 +1,3 @@
--- CreateEnum
-CREATE TYPE "State" AS ENUM ('New', 'Learning', 'Review');
-
 -- CreateTable
 CREATE TABLE "cards" (
     "id" TEXT NOT NULL,
@@ -14,7 +11,7 @@ CREATE TABLE "cards" (
     "scheduled_days" INTEGER NOT NULL,
     "reps" INTEGER NOT NULL,
     "lapses" INTEGER NOT NULL,
-    "state" "State" NOT NULL,
+    "state" INTEGER NOT NULL,
 
     CONSTRAINT "cards_pkey" PRIMARY KEY ("id")
 );
@@ -23,7 +20,7 @@ CREATE TABLE "cards" (
 CREATE TABLE "materials" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
+    "description" TEXT,
     "tags" TEXT[],
 
     CONSTRAINT "materials_pkey" PRIMARY KEY ("id")

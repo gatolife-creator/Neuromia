@@ -108,9 +108,36 @@ export function useDatabaseByMaterialId(materialId: string) {
         ),
       })
       .then(() => {
-        if (callback) {
-          callback();
-        }
+        fetch("http://localhost:3000/api/material", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: materialId,
+            title,
+            description,
+            tags,
+            cards: cards.filter(
+              (card) => card.front.trimEnd() && card.back.trimEnd()
+            ),
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Material updated successfully:", data);
+            if (callback) {
+              callback();
+            }
+          })
+          .catch((error) => {
+            console.error("Error updating material:", error);
+          });
       });
   };
 

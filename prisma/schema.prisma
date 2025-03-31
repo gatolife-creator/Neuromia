@@ -13,12 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum State {
-  New
-  Learning
-  Review
-}
-
 model Card {
   id             String   @id
   front          String
@@ -32,8 +26,7 @@ model Card {
   scheduled_days Int
   reps           Int
   lapses         Int
-  state          State
-  clerkUserId String  // ClerkのユーザーIDで管理
+  state          Int
 
   @@map("cards") // Database table name
 }
@@ -41,10 +34,9 @@ model Card {
 model Material {
   id          String  @id
   title       String
-  description String
+  description String?
   tags        String[] // タグのリスト
   cards       Card[]
-  clerkUserId String  // ClerkのユーザーIDで管理
 
   @@map("materials")
 }
