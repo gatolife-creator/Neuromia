@@ -14,13 +14,15 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log("home page rendered");
+
     getAllCards((cards) => {
       const dueCards = cards.filter((card) => {
         return card.due <= new Date();
       });
       setDueCards(dueCards);
     });
-  });
+  }, []);
 
   return (
     <div>
